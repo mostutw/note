@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 取得與使用者有關的維護記錄。
+     */
+    public function maintians()
+    {
+        return $this->hasMany('App\Maintain');
+    }
 }
