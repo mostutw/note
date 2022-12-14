@@ -56,9 +56,9 @@
             </form>
             <br>
             <p>
-                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}" class="text-center">
+                {{-- <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}" class="text-center">
                     {{ trans('adminlte::adminlte.i_forgot_my_password') }}
-                </a>
+                </a> --}}
             </p>
             @if (config('adminlte.register_url', 'register'))
                 <p>

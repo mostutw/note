@@ -35,4 +35,13 @@ class Maintain extends Model
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
+    /**
+     * 設定日期格式
+     */
+
+    protected $casts = [
+        'start_date'  => 'date:m/d/y',
+        'end_date' => 'date:m/d/y',
+    ];
+
 }

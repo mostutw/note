@@ -10,9 +10,9 @@
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         {{-- <li><a href="#">Pages</a></li> --}}
-        <li class="active">Maintain Create</li>
+        <li class="active">Maintain Edit</li>
     </ol>
 @endsection
 
@@ -21,22 +21,31 @@
     <div class="row">
         {{-- 自訂 --}}
         <div class="col-md-12">
-
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title"></h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="{{ url('pages/maintains') }}" method="post">
+                <form role="form" action="{{ url('pages/maintains/' . $edit->id) }}" method="post">
                     {{ csrf_field() }}
+                    {{ method_field('PUT') }}
                     <div class="box-body">
+                        
+                        <div class="col-md-12">
+                            <div class="form-group-row">
+                                <!-- checkbox -->
+                                <div class="col-md-12">
+                                   
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group-row">
                                 <div class="col-md-8">
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>故障簡述</label>
-                                        <input type="text" class="form-control" name="title" placeholder="簡述原因 ..." value="{{ old('title') }}">
+                                        <input type="text" class="form-control" name="title" placeholder="簡述原因 ..." value="{{ old('title', $edit->title) }}">
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +56,7 @@
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>處理描述</label>
-                                        <textarea class="form-control" id="mytextarea" name="content" rows="10" placeholder="處理描述 ...">{{ old('content') }}</textarea>
+                                        <textarea class="form-control" id="mytextarea" name="content" rows="10" placeholder="處理描述 ..." >{{ old('content', $edit->content) }}</textarea>  
                                     </div>
                                 </div>
                             </div>
@@ -61,20 +70,20 @@
                                         <label>進度</label>
                                         <select class="form-control" name="status">
                                             <option value="pending" 
-                                                @if(old('status')=='pending')
+                                                @if(old('status', $edit->status)=='pending')
                                                 selected @endif>
                                                 pending</option>
                                             <option value="processing"
-                                                @if(old('status')=='processing')
+                                                @if(old('status', $edit->status)=='processing')
                                                 selected @endif>
                                                 processing</option>
                                             <option value="solved"
-                                                @if(old('status')=='solved') 
+                                                @if(old('status', $edit->status)=='solved') 
                                                 selected @endif>
                                                 solved
                                             </option>
                                             <option value="canceled"
-                                                @if(old('status')=='canceled')
+                                                @if(old('status', $edit->status)=='canceled')
                                                 selected @endif>
                                                 canceled</option>
                                         </select>
@@ -82,11 +91,13 @@
                                 </div>
                                 <div class="col-md-2">
                                     <label for="start_date">檢修日</label>
-                                    <input type="date" class="form-control" name="start_date" placeholder="" value="{{ old('start_date') }}">
+                                    <input type="date" class="form-control" name="start_date" placeholder=""
+                                        value="@if (!is_null($edit->start_date)){{ $edit->start_date->format('Y-m-d') }}@endif">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="end_date">完工日</label>
-                                    <input type="date" class="form-control" name="end_date" placeholder="" value="{{ old('end_date') }}">
+                                    <input type="date" class="form-control" name="end_date" placeholder=""
+                                        value="@if (!is_null($edit->end_date)){{ $edit->end_date->format('Y-m-d') }}@endif">
                                 </div>
                             </div>
                         </div>
@@ -122,13 +133,13 @@
             </div><!-- /.box -->
         </div>
     </div>
-    
     <!-- /.content -->
 @endsection
 
 @section('js')
     <!-- tinymce -->
-    <script src='https://cdn.tiny.cloud/1/hn3o0tmszhnrb0adtmub1316kgfdva1wwx1dcwivusv5n56a/tinymce/4/tinymce.min.js'></script>
+    <script src='https://cdn.tiny.cloud/1/hn3o0tmszhnrb0adtmub1316kgfdva1wwx1dcwivusv5n56a/tinymce/4/tinymce.min.js'>
+    </script>
     <script>
         tinymce.init({
             selector: '#mytextarea'

@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     // return view('welcome');
@@ -17,7 +19,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 
 Route::middleware('auth')->group(function () {
 
@@ -33,5 +34,9 @@ Route::middleware('auth')->group(function () {
         Route::get('maintains', 'MaintainController@index');
         Route::get('maintains/create', 'MaintainController@create');
         Route::post('maintains', 'MaintainController@store');
+        Route::get('maintains/{id}', 'MaintainController@show');
+        Route::get('maintains/{id}/edit', 'MaintainController@edit');
+        Route::put('maintains/{id}', 'MaintainController@update');
     });
+
 });
