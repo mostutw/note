@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('admin12345'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
+            'role' => 'admin',
         ]);
     }
 }

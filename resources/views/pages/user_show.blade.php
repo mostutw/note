@@ -44,9 +44,9 @@
                 <div class="box-header">
                     <i class="fa fa-user"></i>
                     <h4 class="box-title">User Profile</h4>&emsp;
-                    @if (Auth::user()->id == 1)
+                    @can('admin')
                         <i class="fa fa-pen">&ensp;<a href="{{ url('pages/users/' . $show->id) . '/edit' }}">Edit</a></i>
-                    @endif
+                    @endcan
 
                 </div><!-- /.box-header -->
                 <div class="box-body">

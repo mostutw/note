@@ -32,7 +32,7 @@
                     <div class="box-body">
                         <div class="col-md-12">
                             <div class="form-group-row">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>使用者名稱</label>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group-row">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>電子郵件地址</label>
@@ -54,13 +54,13 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group-row">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label>密碼</label>
                                         <input type="password" class="form-control" name="password" placeholder="" value="{{ old('password') }}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label>&emsp;</label>
                                         <input type="password" class="form-control" name="confirm_passowrd" placeholder="" value="{{ old('confirm_passowrd') }}">
