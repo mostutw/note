@@ -30,15 +30,6 @@
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="box-body">
-                        
-                        <div class="col-md-12">
-                            <div class="form-group-row">
-                                <!-- checkbox -->
-                                <div class="col-md-12">
-                                   
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <div class="form-group-row">
                                 <div class="col-md-3">

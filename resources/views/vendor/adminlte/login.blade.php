@@ -40,10 +40,10 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="icheck-primary">
+                        {{-- <div class="icheck-primary">
                             <input type="checkbox" name="remember" id="remember">
                             <label for="remember">{{ trans('adminlte::adminlte.remember_me') }}</label>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
