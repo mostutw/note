@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
         Route::get('maintains/{id}', 'MaintainController@show');
         Route::get('maintains/{id}/edit', 'MaintainController@edit');
         Route::put('maintains/{id}', 'MaintainController@update');
+
+        Route::get('change-password', 'ChangePasswordController@index');
+        Route::put('change-password', 'ChangePasswordController@update');
     });
 
 });
