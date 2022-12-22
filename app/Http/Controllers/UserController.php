@@ -116,6 +116,7 @@ class UserController extends Controller
             'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
             'new_password' => ['nullable', 'string', 'min:8'],
             'new_confirm_passowrd' => ['same:new_password'],
+            'is_active' => ['nullable'],
         ];
         
         $request->validate($rules);
@@ -125,6 +126,7 @@ class UserController extends Controller
             $query->name = $request->name == null ? $query->name : $request->name ;
             $query->email = $request->email == null ? $query->email : $request->email ;
             $query->password = $request->password == null ? $query->password : hash::make($request->new_password) ;
+            $query->is_active = $request->is_active == null ? $query->is_active : $request->is_active ;
             $query->save();
         }
         return redirect('pages/users');

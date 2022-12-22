@@ -54,6 +54,8 @@
                     <p class="h5 show-content">{{ $show->name }}</p>
                     <p class="h5 show-title">電子郵件地址</p>
                     <p class="h5 show-content">{{ $show->email }}</p>
+                    <p class="h5 show-title">帳戶狀態</p>
+                    <p class="h5 show-content">{{ $show->is_active ? '啟用' : '停用' }}</p>
                     <p class="h5 show-title">建立時間</p>
                     <p class="h5 show-content">{{ $show->created_at }}</p>
                     <p class="h5 show-title">修改時間</p>

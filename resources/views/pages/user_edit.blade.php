@@ -42,7 +42,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>&emsp;</label>
-                                        <input type="text" class="form-control" name="name" placeholder="name" value="{{ old('name') }}">
+                                        <input type="text" class="form-control" name="name" placeholder="需要修改時輸入" value="{{ old('name') }}">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>&emsp;</label>
-                                        <input type="text" class="form-control" name="email" placeholder="email" value="{{ old('email') }}">
+                                        <input type="text" class="form-control" name="email" placeholder="需要修改時輸入" value="{{ old('email') }}">
                                     </div>
                                 </div>
                             </div>
@@ -70,17 +70,39 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>密碼</label>
-                                        <input type="password" class="form-control" name="new_password" placeholder="需要修改再輸入..." value="{{ old('new_password') }}">
+                                        <input type="password" class="form-control" name="new_password" placeholder="需要修改時輸入" value="{{ old('new_password') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>&emsp;</label>
-                                        <input type="password" class="form-control" name="new_confirm_passowrd" placeholder="再次輸入..." value="{{ old('new_confirm_passowrd') }}">
+                                        <input type="password" class="form-control" name="new_confirm_passowrd" placeholder="" value="{{ old('new_confirm_passowrd') }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group-row">
+                                <div class="col-md-3">
+                                    <label>帳戶狀態</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="is_active" value="1" @if($edit->is_active) checked @endif>
+                                            啟用
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>&emsp;</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="is_active" value="0" @if(!$edit->is_active) checked @endif>
+                                            停用
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>&emsp;
                         <div class="col-md-12">
                             <div class="form-group-row">
                                 <div class="col-md-3">

@@ -44,6 +44,7 @@
                             <th scope="col">#</th>
                             <th scope="col">使用者名稱</th>
                             <th scope="col">電子郵件地址</th>
+                            <th scope="col">帳戶狀態</th>
                             <th scope="col">建立時間</th>
                             <th scope="col">更新時間</th>
                         </tr>
@@ -52,6 +53,7 @@
                                 <td>{{ $value->id }}</td>
                                 <td>{{ $value->name }}</td>
                                 <td><a href="{{ url('pages/users/' . $value->id) }}">{{ $value->email }}</a></td>
+                                <td>{{ $value->is_active ? '啟用' : '停用' }}</td>
                                 <td>{{ $value->created_at}}</td>
                                 <td>{{ $value->updated_at}}</td>
                             </tr>
