@@ -65,6 +65,7 @@ class MaintainController extends Controller
             'start_date'    => 'nullable|date|required_with:end_date|required_if:status,processing',
             'end_date'      => 'nullable|date|after_or_equal:start_date|required_if:status,solved',
             'content'       => 'required_with:end_date',
+            'status'        => 'required',
         ];
         
         $request->validate($rules);
@@ -119,6 +120,7 @@ class MaintainController extends Controller
             'start_date'    => 'nullable|date|required_with:end_date|required_if:status,processing',
             'end_date'      => 'nullable|date|after_or_equal:start_date|required_if:status,solved',
             'content'       => 'required_with:end_date',
+            'status'        => 'required',
         ];
         
         $request->validate($rules);
