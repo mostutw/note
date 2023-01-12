@@ -1,0 +1,46 @@
+body {
+    background-color: #26619c;
+}
+
+.c-form-page {
+    background-color: #fff;
+    padding         : 0 50px;
+}
+
+.c-form-legend {
+    padding-top   : 2em;
+    padding-bottom: 2em;
+}
+
+.c-form-footer {
+    padding-top   : 2em;
+    padding-bottom: 2em;
+}
+
+.c-img-banner {
+    height: auto;
+    width : 100%;
+}
+
+.c-circle {
+    width        : 100px;
+    height       : 100px;
+    border-radius: 50%;
+    object-fit   : cover;
+}
+
+/* 針對桌機裝置 */
+@media screen and (min-width: 769px) {
+    .c-img-circle {
+        padding: 15px;
+    }
+}
+
+/* 針對手機裝置及平板裝置 */
+@media screen and (min-width: 0px) and (max-width: 768px) {
+    .c-img-circle {
+        margin         : 30px auto;
+        display        : flex;
+        justify-content: center;
+    }
+}

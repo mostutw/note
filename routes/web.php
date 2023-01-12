@@ -18,6 +18,10 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+Route::get('resume', function () {
+    return view('pages.resume');
+});
+
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
