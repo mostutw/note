@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::get('demo', 'DemoController@index');
         Route::get('demo2', 'DemoController@demo2');
         Route::get('demo3', 'DemoController@demo3');
+        Route::get('demo4', 'DemoController@demo4');
     });
 
     Route::group(['prefix' => 'pages'], function () {
