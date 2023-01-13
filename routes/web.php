@@ -18,10 +18,6 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-Route::get('resume', function () {
-    return view('pages.resume');
-});
-
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
@@ -52,6 +48,10 @@ Route::middleware('auth')->group(function () {
         Route::get('users/{id}', 'UserController@show')->middleware('can:admin');
         Route::get('users/{id}/edit', 'UserController@edit')->middleware('can:admin');
         Route::put('users/{id}', 'UserController@update')->middleware('can:admin');
+ 
+        Route::get('resumes/create', 'ResumeController@create');
+        Route::post('resumes', 'ResumeController@store');
+
     });
 
 });
