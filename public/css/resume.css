@@ -17,6 +17,10 @@ body {
     padding-bottom: 2em;
 }
 
+.required:after {
+    content:"*";color:red;
+}
+
 .c-img-banner {
     height: auto;
     width : 100%;
