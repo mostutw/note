@@ -49,9 +49,18 @@ Route::middleware('auth')->group(function () {
         Route::get('users/{id}/edit', 'UserController@edit')->middleware('can:admin');
         Route::put('users/{id}', 'UserController@update')->middleware('can:admin');
  
+        Route::get('resumes', 'ResumeController@index');
         Route::get('resumes/create', 'ResumeController@create');
         Route::post('resumes', 'ResumeController@store');
-
+        Route::get('resumes/{id}', 'ResumeController@show');
+        Route::get('resumes/{id}/edit', 'ResumeController@edit');
+        Route::put('resumes/{id}', 'ResumeController@update');
     });
 
+});
+// 公開履歷表 ,唯一URL, 未上鎖時可編輯
+
+Route::group(['prefix' => 'public'], function () {
+    Route::get('resumes/{uuid}/edit', 'ResumeController@editForPublic');
+    Route::put('resumes/{uuid}', 'ResumeController@updateForPublic');
 });

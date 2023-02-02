@@ -132,27 +132,41 @@ return [
         //     'text' => 'search',
         //     'search' => false,
         // ],
-        ['header' => 'MAINTAIN FUNCTION'],
+        ['header' => 'Menu'],
         // [
         //     'text' => 'blog',
         //     'url'  => 'admin/blog',
         //     'can'  => 'manage-blog',
         // ],
         [
-            'text'        => 'Maintain List',
-            'url'         => 'pages/maintains',
-            'icon'        => 'fa fa-list',
-            'label'       => '',
-            'label_color' => 'success',
+            'text' => 'Note',
+            'icon' => 'fa fa-pen',
+            'submenu' => [
+                [
+                    'text' => 'list',
+                    'url'  => 'pages/maintains',
+                ],
+                [
+                    'text' => 'create',
+                    'url'  => 'pages/maintains/create',
+                ],
+            ]
         ],
         [
-            'text'        => 'Maintain Create',
-            'url'         => 'pages/maintains/create',
-            'icon'        => 'fa fa-pen',
-            'label'       => '',
-            'label_color' => 'success',
+            'text' => 'Resume',
+            'icon' => 'fa fa-users',
+            'submenu' => [
+                [
+                    'text' => 'list',
+                    'url'  => 'pages/resumes',
+                ],
+                [
+                    'text' => 'create',
+                    'url'  => 'pages/resumes/create',
+                ],
+            ]
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Account'],
         // [
         //     'text' => 'profile',
         //     'url'  => 'admin/settings',

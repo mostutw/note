@@ -14,14 +14,12 @@ class Resume extends Model
     protected $table = 'resumes';
 
     /**
-     * The attributes that are mass assignable.
+     * 不可被批量賦值的屬性。
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-        'content',
-        'status',
+    protected $guarded = [
+        'id',
     ];
 
     /**
@@ -31,5 +29,4 @@ class Resume extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
-    
 }
