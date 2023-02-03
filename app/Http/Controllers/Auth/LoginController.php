@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
-        if (!User::where(['email' => $request->email])->first()->is_active) {
+        if (!User::where(['email' => $request->email, 'is_active' => 1])->exists()) {
             return redirect('/');
         }
         return $this->guard()->attempt(
