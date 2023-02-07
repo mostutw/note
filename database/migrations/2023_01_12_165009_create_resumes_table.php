@@ -16,8 +16,7 @@ class CreateResumesTable extends Migration
         Schema::create('resumes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
-            $table->string('status')->default('0');
-            $table->json('content');
+            $table->string('status',2)->default('0');
             $table->timestamps();
         });
     }

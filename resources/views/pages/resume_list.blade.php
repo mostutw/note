@@ -30,7 +30,7 @@
                         <form>
                             <div class="input-group">
                                 <input type="text" name="table_search" class="form-control input-sm pull-right"
-                                    style="width: 150px;" placeholder="Search..." />
+                                    style="width: 150px;" placeholder="Search..." value="{{ old('table_search', $filters['table_search']) }}" />
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                                 </div>
@@ -45,20 +45,22 @@
                             <th scope="col">姓名</th>
                             <th scope="col">電話</th>
                             <th scope="col">進度</th>
-                            <th scope="col">上鎖</th>
-                            <th scope="col">外部連結</th>
+                            <th scope="col">人事資料表</th>
+                            <th scope="col">狀態</th>
+                            <th scope="col">提供給求職者</th>
                             <th scope="col">建立日期</th>
                             <th scope="col">修改日期</th>
                         </tr>
                         @forelse ($list as $value)
                             <tr>
-                                <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}" target="_blank">{{ $value->name }}</a></td>
+                                <td>{{ $value->name }}</td>
                                 <td>{{ $value->phone }}</td>
-                                <td>{{ $value->status }}</td>
-                                <td>{{ $value->lock }}</td>
-                                <td><a href="{{ url('public/resumes/' . $value->uuid . '/edit') }}" target="_blank">點擊查看</a></td>
-                                <td>{{ $value->created_at->format('m-d-Y') }}</td>
-                                <td>{{ $value->updated_at->format('m-d-Y') }}</td>
+                                <td>{{ $select_list['resume_status'][$value->status] }}</td>
+                                <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}" target="_blank">查看</a></td>
+                                <td>{{ $select_list['resume_lock'][$value->lock] }}</td>
+                                <td><a href="{{ url('public/resumes/' . $value->uuid . '/edit') }}" target="_blank">查看</a></td>
+                                <td>{{ $value->created_at->format('m-d-Y H:i') }}</td>
+                                <td>{{ $value->updated_at->format('m-d-Y H:i') }}</td>
                             </tr>
                         @empty
                             <tr>
