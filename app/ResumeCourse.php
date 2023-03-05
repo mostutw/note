@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ResumeExp extends Model
+class ResumeCourse extends Model
 {
     /**
      * table name
      * 
      * @var string
      */
-    protected $table = 'resume_exps';
+    protected $table = 'resume_courses';
 
     /**
      * 不可被批量賦值的屬性。
@@ -25,8 +25,7 @@ class ResumeExp extends Model
      */
 
      protected $casts = [
-        'exp_startDate'  => 'date:Y-m',
-        'exp_endDate' => 'date:Y-m',
+        'course_startDate'  => 'date:Y-m',
+        'course_endDate' => 'date:Y-m',
     ];
-
 }

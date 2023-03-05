@@ -50,6 +50,7 @@
                             <th scope="col">提供給求職者</th>
                             <th scope="col">建立日期</th>
                             <th scope="col">修改日期</th>
+                            <th scope="col">匯出</th>
                         </tr>
                         @forelse ($list as $value)
                             <tr>
@@ -61,6 +62,7 @@
                                 <td><a href="{{ url('public/resumes/' . $value->uuid . '/edit') }}" target="_blank">查看</a></td>
                                 <td>{{ $value->created_at->format('m-d-Y H:i') }}</td>
                                 <td>{{ $value->updated_at->format('m-d-Y H:i') }}</td>
+                                <td><a href="{{ url('pages/resumes/' . $value->id) . '/export' }}" target="_blank">下載</a></td>
                             </tr>
                         @empty
                             <tr>

@@ -8,8 +8,8 @@ body {
 }
 
 .c-form-legend {
-    padding-top   : 2em;
-    padding-bottom: 2em;
+    padding-top   : 3em;
+    padding-bottom: 3em;
 }
 
 .c-form-footer {
@@ -18,7 +18,8 @@ body {
 }
 
 .required:after {
-    content:"*";color:red;
+    content: "*";
+    color  : red;
 }
 
 .c-img-banner {
@@ -32,6 +33,35 @@ body {
     border-radius: 50%;
     object-fit   : cover;
     /* box-shadow: 0 0 3px  gray; */
+}
+
+.c-title {
+    padding-top   : 1em;
+}
+
+/* 水平線 */
+
+.hr1 {
+    width      : 100%;
+    text-align : left;
+    margin-left: 0
+}
+
+.hr2 {
+    width      : 95%;
+    text-align : left;
+    margin-left: 0
+}
+
+.hr3 {
+    width      : 92%;
+    text-align : left;
+    margin-left: 0
+}
+.hr4 {
+    width      : 83%;
+    text-align : left;
+    margin-left: 0
 }
 
 /* 針對桌機裝置 */

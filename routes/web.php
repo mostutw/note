@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::get('resumes/{id}', 'ResumeController@show');
         Route::get('resumes/{id}/edit', 'ResumeController@edit');
         Route::put('resumes/{id}', 'ResumeController@update');
+        Route::get('resumes/{id}/export', 'ResumeController@export');
     });
 
 });
@@ -62,5 +63,5 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['prefix' => 'public'], function () {
     Route::get('resumes/{uuid}/edit', 'ResumeController@editForPublic');
-    Route::put('resumes/{uuid}', 'ResumeController@updateForPublic');
+    Route::put('resumes/{uuid}', 'ResumeController@updateForPublic'); 
 });

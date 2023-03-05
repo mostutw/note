@@ -64,6 +64,16 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'save' => [
+            'driver' => 'local',
+            'root' => storage_path('app/save'),
+        ],
+
+        'export' => [
+            'driver' => 'local',
+            'root' => storage_path('app/export'),
+        ],
+
     ],
 
 ];

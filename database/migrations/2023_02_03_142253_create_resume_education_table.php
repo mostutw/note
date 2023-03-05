@@ -20,8 +20,8 @@ class CreateResumeEducationTable extends Migration
             $table->string('school_name',100)->nullable();
             $table->string('school_department',100)->nullable();
             $table->string('school_status',1)->nullable();
-            $table->string('school_startDate',10)->nullable();
-            $table->string('school_endDate',10)->nullable();
+            $table->date('school_startDate')->nullable();
+            $table->date('school_endDate')->nullable();
             $table->string('school_thesisTopic',100)->nullable();
             $table->string('school_sort',2)->default('0');
             $table->timestamps();

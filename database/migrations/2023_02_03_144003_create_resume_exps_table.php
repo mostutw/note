@@ -20,10 +20,10 @@ class CreateResumeExpsTable extends Migration
             $table->string('exp_companyDepartment',100)->nullable();
             $table->string('exp_jobTitle',100)->nullable();
             $table->string('exp_workPlace',100)->nullable();
-            $table->string('exp_startDate',10)->nullable();
-            $table->string('exp_endDate',10)->nullable();
+            $table->date('exp_startDate')->nullable();
+            $table->date('exp_endDate')->nullable();
             $table->text('exp_content')->nullable();
-            $table->string('exp_leaveReson',255)->nullable();
+            $table->string('exp_leaveRaeson',255)->nullable();
             $table->string('exp_sort',2)->default('0');
             $table->timestamps();
         });

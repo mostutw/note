@@ -20,4 +20,10 @@ class ResumeEducation extends Model
      */
     protected $guarded = [];
 
+    protected $casts = [
+        'school_startDate'  => 'date:Y-m',
+        'school_endDate' => 'date:Y-m',
+    ];
+
+
 }

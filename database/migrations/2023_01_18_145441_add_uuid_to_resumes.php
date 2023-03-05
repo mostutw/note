@@ -66,9 +66,9 @@ class AddUuidToResumes extends Migration
             $table->string('recommend_relation_2',100)->nullable();
             $table->string('other_pregnancy',1)->nullable();
             $table->string('other_hospitalized',1)->nullable();
-            $table->string('other_hospitalizedReson',255)->nullable();
+            $table->string('other_hospitalizedReason',255)->nullable();
             $table->string('other_law',1)->nullable();
-            $table->string('other_lawReson',255)->nullable();
+            $table->string('other_lawReason',255)->nullable();
             $table->string('other_infoSource',1)->nullable();
             $table->string('other_infoSourceMemo',255)->nullable();
             $table->string('other_workOvertime',1)->nullable();
