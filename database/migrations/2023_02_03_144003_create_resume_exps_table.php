@@ -23,7 +23,7 @@ class CreateResumeExpsTable extends Migration
             $table->date('exp_startDate')->nullable();
             $table->date('exp_endDate')->nullable();
             $table->text('exp_content')->nullable();
-            $table->string('exp_leaveRaeson',255)->nullable();
+            $table->string('exp_leaveReason',255)->nullable();
             $table->string('exp_sort',2)->default('0');
             $table->timestamps();
         });
