@@ -65,4 +65,13 @@ class Resume extends Model
         // hasMany 會主動使用 resumses_id 當作主鍵
         return $this->hasMany('App\ResumeFamily', 'resumes_id', 'id' );
     }
+
+    /**
+     * 取得該使用者的手機(格式化)
+     * ex: 0900 000 000
+     */
+    public function getPhoneFormatAttribute()
+    {
+        return substr($this->phone, 0, 4) . " " . substr($this->phone, 4, 3) . " " . substr($this->phone, 7, 3);
+    }
 }

@@ -47,7 +47,7 @@
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>聯繫電話</label>
-                                        <input type="number" class="form-control" name="phone" placeholder="" value="{{ old('email') }}">
+                                        <input type="number" class="form-control" name="phone" placeholder="" value="{{ old('phone') }}">
                                     </div>
                                 </div>
                             </div>

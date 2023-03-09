@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         Route::get('resumes/{id}/edit', 'ResumeController@edit');
         Route::put('resumes/{id}', 'ResumeController@update');
         Route::get('resumes/{id}/export', 'ResumeController@export');
+        Route::post('resumes/{id}/updateLock', 'ResumeController@updateLock');
     });
 
 });
