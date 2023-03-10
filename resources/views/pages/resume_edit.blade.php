@@ -449,7 +449,7 @@
                                     class="form-control" placeholder="">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="exp_salary">{{ trans('resume.exp_leaveReson') }}</label>
+                                <label for="exp_salary">{{ trans('resume.exp_salary') }}</label>
                                 <input type="number" name="exp[{{ $i }}][exp_salary]"
                                     value="{{ isset($exp[$i]['exp_salary']) ? $exp[$i]['exp_salary'] : '' }}"
                                     class="form-control" placeholder="">
