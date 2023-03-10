@@ -32,7 +32,7 @@
                         <form>
                             <div class="input-group">
                                 <input type="text" name="table_search" class="form-control input-sm pull-right"
-                                    style="width: 150px;" placeholder="輸入姓名或電話..."
+                                    style="width: 150px;" placeholder="Search..."
                                     value="{{ old('table_search', $filters['table_search']) }}" />
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
@@ -99,21 +99,18 @@
         </div>
     </div>
 @endsection
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<!-- custom -->
+@push('js')
 <script>
     $(document).ready(function() {
-        console.log("document loaded");
+        // console.log("document loaded");
         $(".lock-switch").on('click', function(e) {
             save_lock_status($(this).attr('data-radioIndexId'), $(this).attr('data-radioValue'));
         });
 
     });
     $(window).on("load", function() {
-        console.log("window loaded");
+        // console.log("window loaded");
     });
 
     function save_lock_status(id, lock_status) {
@@ -134,8 +131,7 @@
     }
 
     function copyToClipboard(element, name) {
-        console.log($(this));
-
+        // console.log($(this));
         var $temp = $('<input>');
         $("body").append($temp);
         $temp.val($(element).text()).select();
@@ -143,4 +139,6 @@
         $temp.remove();
         alert('已複製' + '「' + name + '」' + '的外部連結');
     }
+    
 </script>
+@endpush
