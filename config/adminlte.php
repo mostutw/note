@@ -139,8 +139,8 @@ return [
         //     'can'  => 'manage-blog',
         // ],
         [
-            'text' => 'Note',
-            'icon' => 'fa fa-pen',
+            'text' => 'Maintain',
+            'icon' => 'fa fa-book',
             'submenu' => [
                 [
                     'text' => 'list',
@@ -163,6 +163,16 @@ return [
                 [
                     'text' => 'create',
                     'url'  => 'pages/resumes/create',
+                ],
+            ]
+        ],
+        [
+            'text' => 'Flow',
+            'icon' => 'fa fa-pen',
+            'submenu' => [
+                [
+                    'text' => 'list',
+                    'url'  => 'pages/flows',
                 ],
             ]
         ],

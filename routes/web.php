@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('home', 'HomeController@index')->name('home');
 
     Route::group(['prefix' => 'demo'], function () {
         Route::get('demo', 'DemoController@index');
@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
         Route::put('resumes/{id}', 'ResumeController@update');
         Route::get('resumes/{id}/export', 'ResumeController@export');
         Route::post('resumes/{id}/updateLock', 'ResumeController@updateLock');
+
+        Route::get('flows', 'FlowController@index');
     });
 
 });
