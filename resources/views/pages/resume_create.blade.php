@@ -35,8 +35,9 @@
                                 <div class="col-md-2">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>姓名</label>
-                                        <input type="text" class="form-control" name="name" placeholder="" value="{{ old('name') }}">
+                                        <label>{{ trans('resume.name') }}</label>
+                                        <input type="text" class="form-control" name="name" placeholder=""
+                                            value="{{ old('name') }}">
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +47,9 @@
                                 <div class="col-md-2">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>電話</label>
-                                        <input type="number" class="form-control" name="phone" placeholder="" value="{{ old('phone') }}">
+                                        <label>{{ trans('resume.phone') }}</label>
+                                        <input type="number" class="form-control" name="phone" placeholder=""
+                                            value="{{ old('phone') }}">
                                     </div>
                                 </div>
                             </div>
@@ -75,13 +77,14 @@
             </div><!-- /.box -->
         </div>
     </div>
-    
+
     <!-- /.content -->
 @endsection
 
 @section('js')
     <!-- tinymce -->
-    <script src='https://cdn.tiny.cloud/1/hn3o0tmszhnrb0adtmub1316kgfdva1wwx1dcwivusv5n56a/tinymce/4/tinymce.min.js'></script>
+    <script src='https://cdn.tiny.cloud/1/hn3o0tmszhnrb0adtmub1316kgfdva1wwx1dcwivusv5n56a/tinymce/4/tinymce.min.js'>
+    </script>
     <script>
         tinymce.init({
             selector: '#mytextarea'

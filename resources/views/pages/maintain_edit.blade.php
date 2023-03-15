@@ -30,12 +30,10 @@
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="box-body">
-                        
                         <div class="col-md-12">
                             <div class="form-group-row">
                                 <!-- checkbox -->
                                 <div class="col-md-12">
-                                   
                                 </div>
                             </div>
                         </div>
@@ -44,8 +42,9 @@
                                 <div class="col-md-8">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>故障簡述</label>
-                                        <input type="text" class="form-control" name="title" placeholder="簡述原因 ..." value="{{ old('title', $edit->title) }}">
+                                        <label>{{ trans('maintain.title ') }}</label>
+                                        <input type="text" class="form-control" name="title" placeholder=""
+                                            value="{{ old('title', $edit->title) }}">
                                     </div>
                                 </div>
                             </div>
@@ -55,8 +54,8 @@
                                 <div class="col-md-8">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>處理描述</label>
-                                        <textarea class="form-control" id="mytextarea" name="content" rows="10" placeholder="處理描述 ..." >{{ old('content', $edit->content) }}</textarea>  
+                                        <label>{{ trans('maintain.content ') }}</label>
+                                        <textarea class="form-control" id="mytextarea" name="content" rows="10" placeholder="">{{ old('content', $edit->content) }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -67,37 +66,29 @@
                                 <div class="col-md-2">
                                     <!-- select -->
                                     <div class="form-group">
-                                        <label>進度</label>
+                                        <label>{{ trans('maintain.content') }}</label>
                                         <select class="form-control" name="status">
-                                            <option value="pending" 
-                                                @if(old('status', $edit->status)=='pending')
-                                                selected @endif>
+                                            <option value="pending" @if (old('status', $edit->status) == 'pending') selected @endif>
                                                 pending</option>
-                                            <option value="processing"
-                                                @if(old('status', $edit->status)=='processing')
-                                                selected @endif>
+                                            <option value="processing" @if (old('status', $edit->status) == 'processing') selected @endif>
                                                 processing</option>
-                                            <option value="solved"
-                                                @if(old('status', $edit->status)=='solved') 
-                                                selected @endif>
+                                            <option value="solved" @if (old('status', $edit->status) == 'solved') selected @endif>
                                                 solved
                                             </option>
-                                            <option value="canceled"
-                                                @if(old('status', $edit->status)=='canceled')
-                                                selected @endif>
+                                            <option value="canceled" @if (old('status', $edit->status) == 'canceled') selected @endif>
                                                 canceled</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="start_date">檢修日</label>
+                                    <label for="start_date">{{ trans('maintain.start_date') }}</label>
                                     <input type="date" class="form-control" name="start_date" placeholder=""
-                                        value="@if (!is_null($edit->start_date)){{ $edit->start_date->format('Y-m-d') }}@endif">
+                                        value="@if (!is_null($edit->start_date)) {{ $edit->start_date->format('Y-m-d') }} @endif">
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="end_date">完工日</label>
+                                    <label for="end_date">{{ trans('maintain.end_date') }}</label>
                                     <input type="date" class="form-control" name="end_date" placeholder=""
-                                        value="@if (!is_null($edit->end_date)){{ $edit->end_date->format('Y-m-d') }}@endif">
+                                        value="@if (!is_null($edit->end_date)) {{ $edit->end_date->format('Y-m-d') }} @endif">
                                 </div>
                             </div>
                         </div>

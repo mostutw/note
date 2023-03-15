@@ -34,8 +34,9 @@
                             <div class="form-group-row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>變更密碼</label>
-                                        <input type="password" class="form-control" name="new_password" placeholder="輸入密碼" value="{{ old('new_password') }}">
+                                        <label>{{ trans('user.change_password') }}</label>
+                                        <input type="password" class="form-control" name="new_password"
+                                            placeholder="{{ trans('user.password') }}" value="{{ old('new_password') }}">
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +47,9 @@
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label></label>
-                                        <input type="password" class="form-control" name="new_confirm_passowrd" placeholder="再次輸入密碼" value="{{ old('new_confirm_passowrd') }}">
+                                        <input type="password" class="form-control" name="new_confirm_passowrd"
+                                            placeholder="{{ trans('user.confirm_password') }}"
+                                            value="{{ old('new_confirm_passowrd') }}">
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +81,6 @@
                         @endif
                     </div>
                 </form>
-                
             </div><!-- /.box -->
         </div>
     </div>
