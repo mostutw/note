@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => '使用者名稱',
+    'name' => '帳戶名稱',
     'email' => '郵件地址',
     'password' => '密碼',
     'confirm_password' => '確認密碼',

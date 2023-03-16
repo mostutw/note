@@ -42,7 +42,7 @@
                                 <div class="col-md-8">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>{{ trans('maintain.title ') }}</label>
+                                        <label>{{ trans('maintain.title') }}</label>
                                         <input type="text" class="form-control" name="title" placeholder=""
                                             value="{{ old('title', $edit->title) }}">
                                     </div>
@@ -54,7 +54,7 @@
                                 <div class="col-md-8">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>{{ trans('maintain.content ') }}</label>
+                                        <label>{{ trans('maintain.content') }}</label>
                                         <textarea class="form-control" id="mytextarea" name="content" rows="10" placeholder="">{{ old('content', $edit->content) }}</textarea>
                                     </div>
                                 </div>
