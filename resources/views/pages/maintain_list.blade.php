@@ -43,12 +43,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">{{ trans('maintain.title ') }}</th>
-                                <th scope="col">{{ trans('maintain.name ') }}</th>
-                                <th scope="col">{{ trans('maintain.created_at ') }}</th>
-                                <th scope="col">{{ trans('maintain.status ') }}</th>
-                                <th scope="col">{{ trans('maintain.start_date ') }}</th>
-                                <th scope="col">{{ trans('maintain.end_date ') }}</th>
+                                <th scope="col">{{ trans('maintain.title') }}</th>
+                                <th scope="col">{{ trans('maintain.name') }}</th>
+                                <th scope="col">{{ trans('maintain.created_at') }}</th>
+                                <th scope="col">{{ trans('maintain.status') }}</th>
+                                <th scope="col">{{ trans('maintain.start_date') }}</th>
+                                <th scope="col">{{ trans('maintain.end_date') }}</th>
                             </tr>
                         </thead>
                         <tbody>
