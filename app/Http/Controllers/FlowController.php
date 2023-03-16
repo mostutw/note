@@ -89,7 +89,6 @@ class FlowController extends Controller
         // if (!empty($request->q_stepname)) {
         //     $tasks->where('flow_stepname', 'like', '%' . $request->q_stepname . '%');
         // }
-        
         if (!empty($request->q_stepuser)) {
             $stepusers = ItecUser::where('name', 'like', '%' . $request->q_stepuser . '%')->get();
             foreach ($stepusers as $step) {
@@ -214,12 +213,11 @@ class FlowController extends Controller
 
     /**
      * 取得該表單簽核流程
-     * @param   $id
-     * @return  Array
+     * @param   integer  $id
+     * @return  array
      */
-    public function flowStep($id = 0)
+    public function flowStep($id)
     {
-        $array = [];
         $flow = ItecTask::join('itec_forminfo', 'itec_forminfo.id', 'itec_task.form_id')
             ->join('itec_flow', 'itec_flow.id', 'itec_forminfo.flow_id')
             ->select('itec_task.flow_stepid', 'itec_task.flow_stepid', 'itec_flow.id', 'itec_flow.flow_name', 'itec_flow.flow_xml')
@@ -229,10 +227,9 @@ class FlowController extends Controller
         foreach ($flow as $xml) {
             $result = json_decode(json_encode(simplexml_load_string($xml->flow_xml)), true);
         }
-        $result = $result['FlowStructure']['Step'];
 
-        foreach ($result as $key => $value) {
-            $array[] = [
+        foreach ($result['FlowStructure']['Step'] as $value) {
+            $data[] = [
                 'id' => $value['ID'],
                 'name' => $value['Name'],
                 'content_type' => $value['ContentType'],
@@ -240,7 +237,7 @@ class FlowController extends Controller
                 'reject_to' => $value['RejectTo'],
             ];
         }
-        return $array;
+        return $data;
     }
 
     /**

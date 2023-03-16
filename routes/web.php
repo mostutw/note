@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
         Route::post('resumes/{id}/updateLock', 'ResumeController@updateLock');
 
         Route::get('flows', 'FlowController@index');
+        Route::get('flows/{id}/showStep', 'FlowController@flowStep');
+        Route::put('flows/{id}/updateStep', 'FlowController@flowUpdate');
     });
 
 });
