@@ -14,6 +14,10 @@
             padding: 0 22px 18px;
         }
 
+        .show-permission {
+            margin: 5px 0;
+        }
+
         @media (min-width: 768px) {
             .box-body {
                 width: 65%;
@@ -44,22 +48,30 @@
                 <div class="box-header">
                     <i class="fa fa-user"></i>
                     <h4 class="box-title">User Profile</h4>&emsp;
-                    @can('admin')
-                        <i class="fa fa-pen">&ensp;<a href="{{ url('pages/users/' . $show->id) . '/edit' }}">Edit</a></i>
+                    @can('isAdmin')
+                        <i class="fa fa-pen">&ensp;<a href="{{ url('pages/users/' . $user->id) . '/edit' }}">Edit</a></i>
                     @endcan
-
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <p class="h5 show-title">使用者名稱</p>
-                    <p class="h5 show-content">{{ $show->name }}</p>
-                    <p class="h5 show-title">電子郵件地址</p>
-                    <p class="h5 show-content">{{ $show->email }}</p>
-                    <p class="h5 show-title">帳戶狀態</p>
-                    <p class="h5 show-content">{{ $show->is_active ? '啟用' : '停用' }}</p>
-                    <p class="h5 show-title">建立時間</p>
-                    <p class="h5 show-content">{{ $show->created_at }}</p>
-                    <p class="h5 show-title">修改時間</p>
-                    <p class="h5 show-content">{{ $show->updated_at }}</p>
+                    <p class="h5 show-title">{{ trans('user.name') }}</p>
+                    <p class="h5 show-content">{{ $user->name }}</p>
+                    <p class="h5 show-title">{{ trans('user.email') }}</p>
+                    <p class="h5 show-content">{{ $user->email }}</p>
+                    <p class="h5 show-title">{{ trans('user.status') }}</p>
+                    <p class="h5 show-content">{{ $user->is_active ? trans('user.is_active') : trans('user.is_disabled') }}
+                    </p>
+                    <p class="h5 show-title">{{ trans('user.permission') }}</p>
+                    <p class="h5 show-content">
+                        @if ($user->role == 'admin')
+                            <span class="badge badge-secondary show-permission">{{ trans('user.all') }}</span>
+                        @else
+                            @forelse($permission_list as $value)
+                                <span class="badge badge-secondary show-permission">{{ $value }}</span>
+                            @empty
+                                <span class="badge badge-secondary show-permission">{{ trans('user.na') }}</span>
+                            @endforelse
+                        @endif
+                    </p>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>

@@ -26,7 +26,7 @@
                     <h3 class="box-title"></h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="{{ url('pages/users/' . $edit->id) }}" method="post">
+                <form role="form" action="{{ url('pages/users/' . $user->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="box-body">
@@ -35,14 +35,15 @@
                                 <div class="col-md-4">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>使用者名稱</label>
-                                        <p class="h5">{{ $edit->name }}</p>
+                                        <label>{{ trans('user.name') }}</label>
+                                        <p class="h5">{{ $user->name }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>&emsp;</label>
-                                        <input type="text" class="form-control" name="name" placeholder="需要修改時輸入" value="{{ old('name') }}">
+                                        <input type="text" class="form-control" name="name" placeholder=""
+                                            value="{{ old('name') }}">
                                     </div>
                                 </div>
                             </div>
@@ -52,15 +53,16 @@
                                 <div class="col-md-4">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>電子郵件地址</label>
-                                        <p class="h5">{{ $edit->email }}</p>
+                                        <label>{{ trans('user.email') }}</label>
+                                        <p class="h5">{{ $user->email }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>&emsp;</label>
-                                        <input type="text" class="form-control" name="email" placeholder="需要修改時輸入" value="{{ old('email') }}">
+                                        <input type="text" class="form-control" name="email" placeholder=""
+                                            value="{{ old('email') }}">
                                     </div>
                                 </div>
                             </div>
@@ -69,14 +71,16 @@
                             <div class="form-group-row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>密碼</label>
-                                        <input type="password" class="form-control" name="new_password" placeholder="需要修改時輸入" value="{{ old('new_password') }}">
+                                        <label>{{ trans('user.password') }}</label>
+                                        <input type="password" class="form-control" name="new_password" placeholder=""
+                                            value="{{ old('new_password') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>&emsp;</label>
-                                        <input type="password" class="form-control" name="new_confirm_passowrd" placeholder="" value="{{ old('new_confirm_passowrd') }}">
+                                        <input type="password" class="form-control" name="new_confirm_passowrd"
+                                            placeholder="" value="{{ old('new_confirm_passowrd') }}">
                                     </div>
                                 </div>
                             </div>
@@ -84,11 +88,12 @@
                         <div class="col-md-12">
                             <div class="form-group-row">
                                 <div class="col-md-3">
-                                    <label>帳戶狀態</label>
+                                    <label>{{ trans('user.status') }}</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="is_active" value="1" @if($edit->is_active) checked @endif>
-                                            啟用
+                                            <input type="radio" name="is_active" value="1"
+                                                @if ($user->is_active) checked @endif>
+                                            {{ trans('user.is_active') }}
                                         </label>
                                     </div>
                                 </div>
@@ -96,9 +101,28 @@
                                     <label>&emsp;</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="is_active" value="0" @if(!$edit->is_active) checked @endif>
-                                            停用
+                                            <input type="radio" name="is_active" value="0"
+                                                @if (!$user->is_active) checked @endif>
+                                            {{ trans('user.is_disabled') }}
                                         </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group-row">
+                                <div class="col-md-3">
+                                    <label>{{ trans('user.permission') }}</label>
+                                    <div>
+                                        @if ($user->role == 'admin')
+                                            <span class="badge badge-secondary">{{ trans('user.all') }}</span>
+                                        @else
+                                            @forelse($permission_list as $value)
+                                                <span class="badge badge-secondary">{{ $value }}</span>
+                                            @empty
+                                                <span class="badge badge-secondary">{{ trans('user.na') }}</span>
+                                            @endforelse
+                                        @endif
                                     </div>
                                 </div>
                             </div>

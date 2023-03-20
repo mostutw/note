@@ -42,11 +42,11 @@ Route::middleware('auth')->group(function () {
         Route::get('change-password', 'ChangePasswordController@index');
         Route::put('change-password', 'ChangePasswordController@update');
 
-        Route::get('users', 'UserController@index')->middleware('can:admin');
-        Route::get('users/create', 'UserController@create')->middleware('can:admin');
+        Route::get('users', 'UserController@index');
+        Route::get('users/create', 'UserController@create');
         Route::post('users', 'UserController@store')->middleware('can:admin');
-        Route::get('users/{id}', 'UserController@show')->middleware('can:admin');
-        Route::get('users/{id}/edit', 'UserController@edit')->middleware('can:admin');
+        Route::get('users/{id}', 'UserController@show');
+        Route::get('users/{id}/edit', 'UserController@edit');
         Route::put('users/{id}', 'UserController@update')->middleware('can:admin');
  
         Route::get('resumes', 'ResumeController@index');

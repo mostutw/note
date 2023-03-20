@@ -45,7 +45,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">{{ trans('user.name') }}</th>
                                 <th scope="col">{{ trans('user.email') }}</th>
-                                <th scope="col">{{ trans('user.account_status') }}</th>
+                                <th scope="col">{{ trans('user.role') }}</th>
+                                <th scope="col">{{ trans('user.status') }}</th>
                                 <th scope="col">{{ trans('user.created_at') }}</th>
                                 <th scope="col">{{ trans('user.updated_at') }}</th>
                             </tr>
@@ -56,6 +57,7 @@
                                 <th class="row">{{ $value->id }}</th>
                                 <td>{{ $value->name }}</td>
                                 <td><a href="{{ url('pages/users/' . $value->id) }}">{{ $value->email }}</a></td>
+                                <td>{{ $value->role }}</td>
                                 <td>{{ $value->is_active ? trans('user.is_active') : trans('user.is_disabled') }}</td>
                                 <td>{{ $value->created_at}}</td>
                                 <td>{{ $value->updated_at}}</td>

@@ -66,7 +66,7 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8'],
             'confirm_passowrd' => ['same:password'],
         ];
-        
+
         $request->validate($rules);
 
         User::create([
@@ -87,7 +87,12 @@ class UserController extends Controller
     public function show($id)
     {
         $query = User::findOrFail($id);
-        return view('pages.user_show')->with('show', $query);
+        $permission_list = !empty($query['permission']) ? json_decode($query['permission'], true) :  [];
+        $binding = [
+            'user' => $query,
+            'permission_list' => $permission_list,
+        ];
+        return view('pages.user_show')->with($binding);
     }
 
     /**
@@ -99,7 +104,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $query = User::where('id', $id)->first();
-        return view('pages.user_edit')->with('edit', $query);
+        $permission_list = !empty($query['permission']) ? json_decode($query['permission'], true) :  [];
+        $binding = [
+            'user' => $query,
+            'permission_list' => $permission_list,
+        ];
+        // dd($binding);
+        return view('pages.user_edit')->with($binding);
     }
 
     /**
@@ -118,15 +129,15 @@ class UserController extends Controller
             'new_confirm_passowrd' => ['same:new_password'],
             'is_active' => ['nullable'],
         ];
-        
+
         $request->validate($rules);
         $query = User::find($id);
 
         if ($query) {
-            $query->name = $request->name == null ? $query->name : $request->name ;
-            $query->email = $request->email == null ? $query->email : $request->email ;
-            $query->password = $request->password == null ? $query->password : hash::make($request->new_password) ;
-            $query->is_active = $request->is_active == null ? $query->is_active : $request->is_active ;
+            $query->name = $request->name == null ? $query->name : $request->name;
+            $query->email = $request->email == null ? $query->email : $request->email;
+            $query->password = $request->password == null ? $query->password : hash::make($request->new_password);
+            $query->is_active = $request->is_active == null ? $query->is_active : $request->is_active;
             $query->save();
         }
         return redirect('pages/users');

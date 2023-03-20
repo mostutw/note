@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Admin',
+    'title' => 'Note',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>',
+    'logo' => '<b>Note</b>',
 
-    'logo_mini' => '<b>Ad</b>',
+    'logo_mini' => '<b>N</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,6 +141,7 @@ return [
         [
             'text' => 'Maintain',
             'icon' => 'fa fa-book',
+            'can'  => 'maintain.menu',
             'submenu' => [
                 [
                     'text' => 'list',
@@ -155,6 +156,7 @@ return [
         [
             'text' => 'Resume',
             'icon' => 'fa fa-users',
+            'can'  => 'resume.menu',
             'submenu' => [
                 [
                     'text' => 'list',
@@ -169,6 +171,7 @@ return [
         [
             'text' => 'Flow',
             'icon' => 'fa fa-pen',
+            'can'  => 'flow.menu',
             'submenu' => [
                 [
                     'text' => 'list',
@@ -185,7 +188,7 @@ return [
         [
             'text' => 'User',
             'icon' => 'fas fa-fw fa-user',
-            'can' => 'admin',
+            'can' => 'user.menu',
             'submenu' => [
                 [
                     'text' => 'list',

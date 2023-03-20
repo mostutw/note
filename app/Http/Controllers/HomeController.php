@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $permission_list = !empty($user['permission']) ? json_decode($user['permission'],true) :  [] ;
+        $binding = [
+            'user' => $user,
+            'permission_list' => $permission_list,
+        ];
+        // dd($binding);
+        return view('home',$binding);
     }
 }
