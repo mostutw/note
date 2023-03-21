@@ -1,6 +1,11 @@
 @extends('adminlte::page')
 
 @section('css')
+<style>
+    .box-title {
+        padding: 10px 30px;
+    }
+</style>
 @endsection
 
 @section('content_header')
@@ -23,7 +28,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"></h3>
+                    <h3 class="box-title"><i class="fa fa-lock">&nbsp{{ trans('user.change_password') }}</i></h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" action="{{ url('pages/change-password') }}" method="post">
@@ -31,54 +36,46 @@
                     {{ method_field('PUT') }}
                     <div class="box-body">
                         <div class="col-md-12">
-                            <div class="form-group-row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>{{ trans('user.change_password') }}</label>
-                                        <input type="password" class="form-control" name="new_password"
-                                            placeholder="{{ trans('user.password') }}" value="{{ old('new_password') }}">
-                                    </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label">密碼</label>
+                                    <input type="password" class="form-control" name="new_password"
+                                        placeholder="{{ trans('user.password') }}" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label">&nbsp;</label>
+                                    <input type="password" class="form-control" name="new_confirm_passowrd"
+                                        placeholder="{{ trans('user.confirm_password') }}" value="">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group-row">
-                                <div class="col-md-3">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="password" class="form-control" name="new_confirm_passowrd"
-                                            placeholder="{{ trans('user.confirm_password') }}"
-                                            value="{{ old('new_confirm_passowrd') }}">
-                                    </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group-row">
-                                <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                            @endif
+                            @if (!empty($messages))
+                                <div class="alert alert-success">
+                                    <ul>
+                                        <li>{{ $messages }}</li>
+                                    </ul>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                        @endif
-                        @if (!empty($messages))
-                            <div class="alert alert-success">
-                                <ul>
-                                    <li>{{ $messages }}</li>
-                                </ul>
-                            </div>
-                        @endif
+                        </div>
                     </div>
                 </form>
             </div><!-- /.box -->

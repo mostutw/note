@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -60,14 +61,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
             'confirm_passowrd' => ['same:password'],
-        ];
-
-        $request->validate($rules);
+        ]);
 
         User::create([
             'name' => $request->name,
@@ -122,24 +121,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'name' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:100', Rule::unique('users')->ignore($id),],
             'new_password' => ['nullable', 'string', 'min:8'],
-            'new_confirm_passowrd' => ['same:new_password'],
-            'is_active' => ['nullable'],
-        ];
+            'is_active' => ['required'],
+        ]);
 
-        $request->validate($rules);
-        $query = User::find($id);
+        $user = User::findOrFail($id);
 
-        if ($query) {
-            $query->name = $request->name == null ? $query->name : $request->name;
-            $query->email = $request->email == null ? $query->email : $request->email;
-            $query->password = $request->password == null ? $query->password : hash::make($request->new_password);
-            $query->is_active = $request->is_active == null ? $query->is_active : $request->is_active;
-            $query->save();
-        }
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = empty($request->input('new_password')) ? $user->password : hash::make($request->input('new_password'));
+        $user->is_active = $request->input('is_active');
+        $user->save();
+
         return redirect('pages/users');
     }
 

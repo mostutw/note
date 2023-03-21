@@ -2,25 +2,13 @@
 
 @section('css')
     <style>
-        .show-title {
-            padding: 0 20px 10px;
-        }
-
-        .show-sub-title {
-            padding: 0 20px 18px;
-        }
-
-        .show-content {
-            padding: 0 22px 18px;
-        }
-
-        .show-permission {
-            margin: 5px 0;
+        .box-title {
+            padding: 10px 30px;
         }
 
         @media (min-width: 768px) {
             .box-body {
-                width: 65%;
+                /* width: 65%; */
             }
         }
     </style>
@@ -43,40 +31,83 @@
     <!-- Main content -->
     <div class="row">
         {{-- 自訂 --}}
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header">
-                    <i class="fa fa-user"></i>
-                    <h4 class="box-title">User Profile</h4>&emsp;
+                    <h4 class="box-title"><i class="fa fa-user">&nbsp{{ trans('user.user_profile') }}</i></h4>
                     @can('isAdmin')
-                        <i class="fa fa-pen">&ensp;<a href="{{ url('pages/users/' . $user->id) . '/edit' }}">Edit</a></i>
+                        <h4 class="box-title"><i class="fa fa-pen">&nbsp<a
+                                    href="{{ url('pages/users/' . $user->id) . '/edit' }}">{{ trans('user.edit') }}</a></i></h4>
                     @endcan
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <p class="h5 show-title">{{ trans('user.name') }}</p>
-                    <p class="h5 show-content">{{ $user->name }}</p>
-                    <p class="h5 show-title">{{ trans('user.email') }}</p>
-                    <p class="h5 show-content">{{ $user->email }}</p>
-                    <p class="h5 show-title">{{ trans('user.status') }}</p>
-                    <p class="h5 show-content">{{ $user->is_active ? trans('user.is_active') : trans('user.is_disabled') }}
-                    </p>
-                    <p class="h5 show-title">{{ trans('user.permission') }}</p>
-                    <p class="h5 show-content">
-                        @if ($user->role == 'admin')
-                            <span class="badge badge-secondary show-permission">{{ trans('user.all') }}</span>
-                        @else
-                            @forelse($permission_list as $value)
-                                <span class="badge badge-secondary show-permission">{{ $value }}</span>
-                            @empty
-                                <span class="badge badge-secondary show-permission">{{ trans('user.na') }}</span>
-                            @endforelse
-                        @endif
-                    </p>
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-label">{{ trans('user.name') }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <span>{{ $user->name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-label">{{ trans('user.email') }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <span>{{ $user->email }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-label">{{ trans('user.status') }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <span>{{ $user->is_active ? trans('user.is_active') : trans('user.is_disabled') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-label">{{ trans('user.permission') }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                @if ($user->role == 'admin')
+                                    <span class="badge badge-secondary">{{ trans('user.all') }}</span>
+                                @else
+                                    @forelse($permission_list as $value)
+                                        <span class="badge badge-secondary">{{ $value }}</span>
+                                    @empty
+                                        <span class="badge badge-secondary">{{ trans('user.na') }}</span>
+                                    @endforelse
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- /.box-body -->
+                 <div class="box-footer">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+                            </div>
+                        </div>
+                    </div>
             </div><!-- /.box -->
         </div>
     </div>
-
     <!-- /.content -->
 @endsection
 

@@ -1,5 +1,7 @@
 <?php
 return [
+    'id' => '序號',
+    'edit' => '修改',
     'name' => '使用者名稱',
     'email' => '郵件地址',
     'password' => '密碼',
@@ -14,4 +16,5 @@ return [
     'updated_at' => '更新時間',
     'na' => '無',
     'all' => '全部',
+    'user_profile' => '個人訊息',
 ];

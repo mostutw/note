@@ -38,11 +38,12 @@
                         </form>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">{{ trans('maintain.id') }}</th>
                                 <th scope="col">{{ trans('maintain.title') }}</th>
                                 <th scope="col">{{ trans('maintain.name') }}</th>
                                 <th scope="col">{{ trans('maintain.created_at') }}</th>
@@ -54,7 +55,8 @@
                         <tbody>
                             @forelse ($list as $key => $value)
                                 <tr>
-                                    <th class="row">{{ $key + 1 }}</th>
+                                    <th class="row text-center">{{ $key + 1 }}</th>
+                                    <td class="text-center">{{ $value->id }}</td>
                                     <td><a href="{{ url('pages/maintains/' . $value->id) }}">{{ $value->title }}</a></td>
                                     <td>{{ $value->user->name }}</td>
                                     <td>{{ $value->created_at->format('m-d-Y') }}</td>

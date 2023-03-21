@@ -31,47 +31,44 @@
                     {{ csrf_field() }}
                     <div class="box-body">
                         <div class="col-md-12">
-                            <div class="form-group-row">
-                                <div class="col-md-2">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label>{{ trans('resume.name') }}</label>
-                                        <input type="text" class="form-control" name="name" placeholder=""
-                                            value="{{ old('name') }}">
-                                    </div>
+                            <div class="col-md-2">
+                                <!-- textarea -->
+                                <div class="form-group">
+                                    <label>{{ trans('resume.name') }}</label>
+                                    <input type="text" class="form-control" name="name" placeholder=""
+                                        value="{{ old('name') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group-row">
-                                <div class="col-md-2">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label>{{ trans('resume.phone') }}</label>
-                                        <input type="number" class="form-control" name="phone" placeholder=""
-                                            value="{{ old('phone') }}">
-                                    </div>
+                            <div class="col-md-2">
+                                <!-- textarea -->
+                                <div class="form-group">
+                                    <label>{{ trans('resume.phone') }}</label>
+                                    <input type="number" class="form-control" name="phone" placeholder=""
+                                        value="{{ old('phone') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group-row">
-                                <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                        @endif
+                        </div>
+
                     </div>
                 </form>
             </div><!-- /.box -->

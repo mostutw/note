@@ -65,12 +65,12 @@
                         </form>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">{{ trans('flow.id') }}</th>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">{{ trans('flow.id') }}</th>
                                 <th scope="col">{{ trans('flow.apply_name') }}</th>
                                 <th scope="col">{{ trans('flow.title_name') }}</th>
                                 <th scope="col">{{ trans('flow.status') }}</th>
@@ -84,8 +84,8 @@
                         <tbody>
                             @forelse ($list as $key => $value)
                                 <tr>
-                                    <th class="row">{{ $key + 1 }}</th>
-                                    <td>{{ $value['id'] }}</td>
+                                    <th class="row text-center">{{ $key + 1 }}</th>
+                                    <td class="text-center">{{ $value['id'] }}</td>
                                     <td>{{ $value['name'] }}</td>
                                     <td>{{ $value['title_name'] }}</td>
                                     <td><a href="#" data-toggle="modal" data-target="#edit"

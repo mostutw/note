@@ -41,11 +41,12 @@
                         </form>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">{{ trans('resume.id') }}</th>
                                 <th scope="col">{{ trans('resume.name') }}</th>
                                 <th scope="col">{{ trans('resume.phone') }}</th>
                                 <th scope="col">{{ trans('resume.status') }}</th>
@@ -60,7 +61,8 @@
                         <tbody>
                             @forelse ($list as $key => $value)
                                 <tr>
-                                    <th scope="row">{{ $key + 1 }}</th>
+                                    <th scope="row text-center">{{ $key + 1 }}</th>
+                                    <td class="text-center">{{ $value->id }}</th>
                                     <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
                                             target="_blank">{{ $value->name }}</a></td>
                                     <td>{{ $value->phoneFormat }}</td>

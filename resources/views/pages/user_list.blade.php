@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
 @section('css')
-<style>
-    .list-box{
-        padding: 0 20px 18px;
-    }
-</style>
+    <style>
+        .list-box {
+            padding: 0 20px 18px;
+        }
+    </style>
 @endsection
 
 @section('content_header')
@@ -38,11 +38,12 @@
                         </form>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover table-striped">
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" class="text-center">#</th>
+                                {{-- <th scope="col" class="text-center">{{ trans('user.id') }}</th> --}}
                                 <th scope="col">{{ trans('user.name') }}</th>
                                 <th scope="col">{{ trans('user.email') }}</th>
                                 <th scope="col">{{ trans('user.role') }}</th>
@@ -52,21 +53,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse ($list as $value)
-                            <tr>
-                                <th class="row">{{ $value->id }}</th>
-                                <td>{{ $value->name }}</td>
-                                <td><a href="{{ url('pages/users/' . $value->id) }}">{{ $value->email }}</a></td>
-                                <td>{{ $value->role }}</td>
-                                <td>{{ $value->is_active ? trans('user.is_active') : trans('user.is_disabled') }}</td>
-                                <td>{{ $value->created_at}}</td>
-                                <td>{{ $value->updated_at}}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td class="text-center" colspan="10">No Data</td>
-                            </tr>
-                        @endforelse
+                            @forelse ($list as $key => $value)
+                                <tr>
+                                    <th class="row text-center">{{ $key + 1 }}</th>
+                                    {{-- <td class="text-center">{{ $value->id }}</td> --}}
+                                    <td>{{ $value->name }}</td>
+                                    <td><a href="{{ url('pages/users/' . $value->id) . '/edit' }}">{{ $value->email }}</a>
+                                    </td>
+                                    <td>{{ $value->role }}</td>
+                                    <td>{{ $value->is_active ? trans('user.is_active') : trans('user.is_disabled') }}</td>
+                                    <td>{{ $value->created_at }}</td>
+                                    <td>{{ $value->updated_at }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="10">No Data</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{-- {{ $list->appends($filters)->links() }} --}}

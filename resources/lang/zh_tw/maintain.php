@@ -1,5 +1,6 @@
 <?php
 return [
+    'id' => '單號',
     'title' => '標題',
     'name' => '建立者',
     'created_at' => '建立日期',
