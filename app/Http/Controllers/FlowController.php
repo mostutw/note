@@ -86,9 +86,6 @@ class FlowController extends Controller
         if (!empty($request->q_name)) {
             $tasks->where('name', 'like', '%' . $request->q_name . '%');
         }
-        // if (!empty($request->q_stepname)) {
-        //     $tasks->where('flow_stepname', 'like', '%' . $request->q_stepname . '%');
-        // }
         if (!empty($request->q_stepuser)) {
             $stepusers = ItecUser::where('name', 'like', '%' . $request->q_stepuser . '%')->get();
             foreach ($stepusers as $step) {

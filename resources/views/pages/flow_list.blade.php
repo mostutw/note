@@ -32,7 +32,7 @@
                         <form role="form">
                             <div class="form-group">
                                 <div class="form-group col-xs-12 col-md-2 pull-left">
-                                    <input type="text" name="q_id" class="form-control input-sm pull-left"
+                                    <input type="number" name="q_id" class="form-control input-sm pull-left"
                                         value="{{ $filters['q_id'] }}" placeholder="{{ trans('flow.id') }}" />
                                 </div>
                                 <div class="form-group col-xs-12 col-md-2">
