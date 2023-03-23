@@ -41,51 +41,37 @@
                     {{ method_field('PUT') }}
                     <div class="box-body">
                         <div class="col-md-12">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">{{ trans('user.name') }}</label>
-                                </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">{{ trans('user.name') }}</label>
                             </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="name" placeholder=""
-                                        value="{{ $user->name }}">
-                                </div>
+                            <div class="col-md-8 form-group">
+                                <input type="text" class="form-control" name="name" placeholder=""
+                                    value="{{ $user->name }}">
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">{{ trans('user.email') }}</label>
-                                </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">{{ trans('user.email') }}</label>
                             </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" name="email" placeholder=""
-                                        value="{{ $user->email }}">
-                                </div>
+                            <div class="col-md-8 form-group">
+                                <input type="email" class="form-control" name="email" placeholder=""
+                                    value="{{ $user->email }}">
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">{{ trans('user.password') }}</label>
-                                </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">{{ trans('user.password') }}</label>
                             </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <input type="password" class="form-control" name="new_password" placeholder=""
-                                        value="">
-                                </div>
+                            <div class="col-md-8 form-group">
+                                <input type="password" class="form-control" name="new_password" placeholder=""
+                                    value="">
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">{{ trans('user.status') }}</label>
-                                </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">{{ trans('user.status') }}</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 form-group">
                                 <input type="radio" name="is_active" value="1"
                                     @if ($user->is_active) checked @endif>
                                 {{ trans('user.is_active') }}
@@ -96,14 +82,12 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="form-label">{{ trans('user.permission') }}</label>
-                                </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">{{ trans('user.permission') }}</label>
                             </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    @if ($user->role == 'admin')
+                            <div class="col-md-8 form-group row">
+                                {{-- <div class="form-group"> --}}
+                                {{-- @if ($user->role == 'admin')
                                         <span class="badge badge-secondary">{{ trans('user.all') }}</span>
                                     @else
                                         @forelse($permission_list as $value)
@@ -111,8 +95,27 @@
                                         @empty
                                             <span class="badge badge-secondary">{{ trans('user.na') }}</span>
                                         @endforelse
-                                    @endif
-                                </div>
+                                    @endif --}}
+                                {{-- </div> --}}
+                                @if ($user->role == 'admin')
+                                    <div class="col-md-2 form-group text-left">
+                                        <span class="badge badge-secondary">{{ trans('user.all') }}</span>
+                                    </div>
+                                @else
+                                    @foreach ($permissions as $value)
+                                        <div class="col-md-2 form-group text-left">
+                                            <span class="badge badge-secondary">{{ $value }}</span>
+                                        </div>
+                                        <div class="col-md-10 form-group">
+                                            <input type="radio" name="permission_list[{{ $value }}]"
+                                                value="1" @if (in_array($value, $permission_list)) checked @endif>
+                                            {{ trans('user.is_active') }}
+                                            <input type="radio" name="permission_list[{{ $value }}]"
+                                                value="0" @if (!in_array($value, $permission_list)) checked @endif>
+                                            {{ trans('user.is_disabled') }}
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-12">

@@ -6,10 +6,22 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
+
+    /**
+     * 權限列表
+     * TODO: 改成寫入到專門儲存設定的資料欄位, 例如 settings
+     * return array 
+     */
+    public $permissions = [
+        'user.menu', 'flow.menu', 'resume.menu', 'maintain.menu',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -107,6 +119,7 @@ class UserController extends Controller
         $binding = [
             'user' => $query,
             'permission_list' => $permission_list,
+            'permissions' => $this->permissions,
         ];
         // dd($binding);
         return view('pages.user_edit')->with($binding);
@@ -128,12 +141,17 @@ class UserController extends Controller
             'is_active' => ['required'],
         ]);
 
+        $permission_list = Input::get('permission_list', []);
+        $new_permission_list = collect($permission_list)
+            ->filter(fn ($value) => $value === "1")
+            ->keys();
+        // dd($new_permission_list);
         $user = User::findOrFail($id);
-
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = empty($request->input('new_password')) ? $user->password : hash::make($request->input('new_password'));
         $user->is_active = $request->input('is_active');
+        $user->permission = json_encode($new_permission_list->all());
         $user->save();
 
         return redirect('pages/users');
