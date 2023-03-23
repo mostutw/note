@@ -48,7 +48,7 @@
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col" class="text-center">{{ trans('resume.id') }}</th>
                                 <th scope="col">{{ trans('resume.name') }}</th>
-                                <th scope="col">{{ trans('resume.phone') }}</th>
+                                {{-- <th scope="col">{{ trans('resume.phone') }}</th> --}}
                                 <th scope="col">{{ trans('resume.status') }}</th>
                                 <th scope="col">{{ trans('resume.link_button') }}</th>
                                 <th scope="col">{{ trans('resume.public_link') }}</th>
@@ -65,7 +65,7 @@
                                     <td class="text-center">{{ $value->id }}</th>
                                     <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
                                             target="_blank">{{ $value->name }}</a></td>
-                                    <td>{{ $value->phoneFormat }}</td>
+                                    {{-- <td>{{ $value->phoneFormat }}</td> --}}
                                     <td>{{ $select_list['resume_status'][$value->status] }}</td>
                                     <td>
                                         <div class="form-check form-check-inline">
