@@ -61,7 +61,7 @@
                         <tbody>
                             @forelse ($list as $key => $value)
                                 <tr>
-                                    <th scope="row text-center">{{ $key + 1 }}</th>
+                                    <th scope="row" class="text-center">{{ $key + 1 }}</th>
                                     <td class="text-center">{{ $value->id }}</th>
                                     <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
                                             target="_blank">{{ $value->name }}</a></td>

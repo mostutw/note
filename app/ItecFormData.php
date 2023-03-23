@@ -26,4 +26,23 @@ class ItecFormData extends Model
     {
         return $this->belongsTo('App\ItecFormInfo');
     }
+
+    /**
+     * 取得該模型路由的自定義鍵名(預設為 id)。
+     * 
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'task_id';
+    }
+
+    /**
+     * 取得該單據的表單資訊
+     */
+    public function form_info()
+    {
+        // Model, foreign key, local key
+        return $this->hasOne('App\ItecFormInfo', 'id', 'form_id');
+    }
 }

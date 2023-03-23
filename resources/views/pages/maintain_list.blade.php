@@ -55,7 +55,7 @@
                         <tbody>
                             @forelse ($list as $key => $value)
                                 <tr>
-                                    <th class="row text-center">{{ $key + 1 }}</th>
+                                    <th scope="row" class="text-center">{{ $key + 1 }}</th>
                                     <td class="text-center">{{ $value->id }}</td>
                                     <td><a href="{{ url('pages/maintains/' . $value->id) }}">{{ $value->title }}</a></td>
                                     <td>{{ $value->user->name }}</td>

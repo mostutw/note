@@ -67,27 +67,30 @@
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
                     <table class="table table-hover">
-                        <thead>
+                        <thead class="no-warp">
                             <tr>
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col" class="text-center">{{ trans('flow.id') }}</th>
-                                <th scope="col">{{ trans('flow.apply_name') }}</th>
                                 <th scope="col">{{ trans('flow.title_name') }}</th>
-                                <th scope="col">{{ trans('flow.status') }}</th>
-                                <th scope="col">{{ trans('flow.flow_sign_name') }}</th>
+                                <th scope="col">{{ trans('flow.apply_name') }}</th>
                                 <th scope="col">{{ trans('flow.flow_stepname') }}</th>
+                                <th scope="col">{{ trans('flow.flow_sign_name') }}</th>
+                                <th scope="col">{{ trans('flow.status') }}</th>
                                 <th scope="col">{{ trans('flow.create_date') }}</th>
                                 <th scope="col">{{ trans('flow.update_date') }}</th>
-                                {{-- <th scope="col">異動</th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($list as $key => $value)
                                 <tr>
-                                    <th class="row text-center">{{ $key + 1 }}</th>
-                                    <td class="text-center">{{ $value['id'] }}</td>
-                                    <td>{{ $value['name'] }}</td>
+                                    <th scope="row" class="text-center">{{ $key + 1 }}</th>
+                                    <td class="text-center">
+                                        <a href="{{ url('pages/forms/' . $value['id'] ) }}" target="_blank">{{ $value['id'] }}</a>
+                                    </td>
                                     <td>{{ $value['title_name'] }}</td>
+                                    <td>{{ $value['name'] }}</td>
+                                    <td>{{ $value['flow_stepname'] }}</td>
+                                    <td>{{ $value['flow_sign_name'] }}</td>
                                     <td><a href="#" data-toggle="modal" data-target="#edit"
                                             data-id="{{ $value['id'] }}" data-titlename="{{ $value['title_name'] }}"
                                             data-stepname="{{ $value['flow_stepname'] }}"
@@ -95,22 +98,8 @@
                                             data-signname="{{ $value['flow_sign_name'] }}"
                                             data-statusname="{{ $value['status_name'] }}"
                                             data-status="{{ $value['status'] }}">{{ $value['status_name'] }}</a></td>
-                                    <td>{{ $value['flow_sign_name'] }}</td>
-                                    <td>{{ $value['flow_stepname'] }}</td>
                                     <td>{{ $value['create_date_format'] }}</td>
                                     <td>{{ $value['update_date_format'] }}</td>
-                                    <td>
-                                        {{-- <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                            data-target="#edit" data-id="{{ $value['id'] }}"
-                                            data-titlename="{{ $value['title_name'] }}"
-                                            data-stepname="{{ $value['flow_stepname'] }}"
-                                            data-stepid="{{ $value['flow_stepid'] }}"
-                                            data-signname="{{ $value['flow_sign_name'] }}"
-                                            data-statusname="{{ $value['status_name'] }}"
-                                            data-status="{{ $value['status'] }}">
-                                            異動
-                                        </button> --}}
-                                    </td>
                                 </tr>
                             @empty
                                 <tr>

@@ -105,8 +105,6 @@ class FlowController extends Controller
         $row_per_page = isset($request->row_per_page) && ($request->row_per_page >= $this->min_row_per_page && $this->max_row_per_page >= $request->row_per_page) ? $request->row_per_page : $this->default_row_per_page;
         // 查詢結束
         $flows = $tasks->orderBy($order_by, $sort_by)->simplePaginate($row_per_page);
-
-        // dd($flows);
         // 使用者清單
         $users = ItecUser::all()->keyBy('id');
         $employees = ItecUser::whereNull('leave_office_date')
