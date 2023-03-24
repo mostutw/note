@@ -6,9 +6,22 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
+
+    /**
+     * 權限列表
+     * TODO: 改成寫入到專門儲存設定的資料欄位, 例如 settings
+     * return array 
+     */
+    public $permissions = [
+        'user.menu', 'flow.menu', 'resume.menu', 'maintain.menu',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -60,14 +73,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
             'confirm_passowrd' => ['same:password'],
-        ];
-        
-        $request->validate($rules);
+        ]);
 
         User::create([
             'name' => $request->name,
@@ -87,7 +98,12 @@ class UserController extends Controller
     public function show($id)
     {
         $query = User::findOrFail($id);
-        return view('pages.user_show')->with('show', $query);
+        $permission_list = !empty($query['permission']) ? json_decode($query['permission'], true) :  [];
+        $binding = [
+            'user' => $query,
+            'permission_list' => $permission_list,
+        ];
+        return view('pages.user_show')->with($binding);
     }
 
     /**
@@ -99,7 +115,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $query = User::where('id', $id)->first();
-        return view('pages.user_edit')->with('edit', $query);
+        $permission_list = !empty($query['permission']) ? json_decode($query['permission'], true) :  [];
+        $binding = [
+            'user' => $query,
+            'permission_list' => $permission_list,
+            'permissions' => $this->permissions,
+        ];
+        // dd($binding);
+        return view('pages.user_edit')->with($binding);
     }
 
     /**
@@ -111,24 +134,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'name' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:100', Rule::unique('users')->ignore($id),],
             'new_password' => ['nullable', 'string', 'min:8'],
-            'new_confirm_passowrd' => ['same:new_password'],
-            'is_active' => ['nullable'],
-        ];
-        
-        $request->validate($rules);
-        $query = User::find($id);
+            'is_active' => ['required'],
+        ]);
 
-        if ($query) {
-            $query->name = $request->name == null ? $query->name : $request->name ;
-            $query->email = $request->email == null ? $query->email : $request->email ;
-            $query->password = $request->password == null ? $query->password : hash::make($request->new_password) ;
-            $query->is_active = $request->is_active == null ? $query->is_active : $request->is_active ;
-            $query->save();
-        }
+        $permission_list = Input::get('permission_list', []);
+        $new_permission_list = collect($permission_list)
+            ->filter(fn ($value) => $value === "1")
+            ->keys();
+        // dd($new_permission_list);
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = empty($request->input('new_password')) ? $user->password : hash::make($request->input('new_password'));
+        $user->is_active = $request->input('is_active');
+        $user->permission = json_encode($new_permission_list->all());
+        $user->save();
+
         return redirect('pages/users');
     }
 

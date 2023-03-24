@@ -16,7 +16,7 @@
 
         @media (min-width: 768px) {
             .box-body {
-                width: 65%;
+                /* width: 65%; */
             }
         }
     </style>

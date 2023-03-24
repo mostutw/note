@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('home', 'HomeController@index')->name('home');
 
     Route::group(['prefix' => 'demo'], function () {
         Route::get('demo', 'DemoController@index');
@@ -42,12 +42,12 @@ Route::middleware('auth')->group(function () {
         Route::get('change-password', 'ChangePasswordController@index');
         Route::put('change-password', 'ChangePasswordController@update');
 
-        Route::get('users', 'UserController@index')->middleware('can:admin');
-        Route::get('users/create', 'UserController@create')->middleware('can:admin');
-        Route::post('users', 'UserController@store')->middleware('can:admin');
-        Route::get('users/{id}', 'UserController@show')->middleware('can:admin');
-        Route::get('users/{id}/edit', 'UserController@edit')->middleware('can:admin');
-        Route::put('users/{id}', 'UserController@update')->middleware('can:admin');
+        Route::get('users', 'UserController@index');
+        Route::get('users/create', 'UserController@create');
+        Route::post('users', 'UserController@store');
+        Route::get('users/{id}', 'UserController@show');
+        Route::get('users/{id}/edit', 'UserController@edit');
+        Route::put('users/{id}', 'UserController@update');
  
         Route::get('resumes', 'ResumeController@index');
         Route::get('resumes/create', 'ResumeController@create');
@@ -57,6 +57,12 @@ Route::middleware('auth')->group(function () {
         Route::put('resumes/{id}', 'ResumeController@update');
         Route::get('resumes/{id}/export', 'ResumeController@export');
         Route::post('resumes/{id}/updateLock', 'ResumeController@updateLock');
+
+        Route::get('flows', 'FlowController@index');
+        Route::get('flows/{id}/showStep', 'FlowController@flowStep');
+        Route::put('flows/{id}/updateStep', 'FlowController@flowUpdate');
+
+        Route::get('forms/{itecFormData}', 'FormController@show');
     });
 
 });

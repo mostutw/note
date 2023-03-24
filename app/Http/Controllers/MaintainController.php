@@ -60,15 +60,13 @@ class MaintainController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $request->validate([
             'title'         => 'required|max:100',
             'start_date'    => 'nullable|date|required_with:end_date|required_if:status,processing',
             'end_date'      => 'nullable|date|after_or_equal:start_date|required_if:status,solved',
             'content'       => 'required_with:end_date',
             'status'        => 'required',
-        ];
-        
-        $request->validate($rules);
+        ]);
 
         Maintain::create([
             'user_id' => Auth::user()->id,
@@ -115,15 +113,14 @@ class MaintainController extends Controller
      */
     public function update(Request $request, Maintain $maintain)
     {
-        $rules = [
+        $request->validate([
             'title'         => 'required|max:100',
             'start_date'    => 'nullable|date|required_with:end_date|required_if:status,processing',
             'end_date'      => 'nullable|date|after_or_equal:start_date|required_if:status,solved',
             'content'       => 'required_with:end_date',
             'status'        => 'required',
-        ];
-        
-        $request->validate($rules);
+        ]);
+
         $query = $maintain->findOrFail($request->id);
 
         if (Auth::user()->id == $query->user_id) {

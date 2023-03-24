@@ -84,7 +84,7 @@
                 <div class="box-header">
                     <h3 class="box-title">Condensed Full Width Table</h3>
                 </div><!-- /.box-header -->
-                <div class="box-body no-padding">
+                <div class="box-body">
                     <table class="table table-condensed">
                         <tr>
                             <th style="width: 10px">#</th>
@@ -150,7 +150,7 @@
                         </ul>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body no-padding">
+                <div class="box-body">
                     <table class="table">
                         <tr>
                             <th style="width: 10px">#</th>
@@ -206,8 +206,8 @@
                 <div class="box-header">
                     <h3 class="box-title">Striped Full Width Table</h3>
                 </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <table class="table table-striped">
+                <div class="box-body">
+                    <table class="table">
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Task</th>
@@ -274,7 +274,7 @@
                         </div>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
+                <div class="box-body table-responsive">
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>

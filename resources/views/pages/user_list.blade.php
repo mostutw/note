@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
 @section('css')
-<style>
-    .list-box{
-        padding: 0 20px 18px;
-    }
-</style>
+    <style>
+        .list-box {
+            padding: 0 20px 18px;
+        }
+    </style>
 @endsection
 
 @section('content_header')
@@ -27,7 +27,7 @@
                 <div class="box-header">
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
-                        <form>
+                        <form role="form">
                             <div class="input-group">
                                 <input type="text" name="table_search" class="form-control input-sm pull-right"
                                     style="width: 150px;" placeholder="Search..." />
@@ -38,33 +38,47 @@
                         </form>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
+                <div class="box-body table-responsive">
                     <table class="table table-hover">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">使用者名稱</th>
-                            <th scope="col">電子郵件地址</th>
-                            <th scope="col">帳戶狀態</th>
-                            <th scope="col">建立時間</th>
-                            <th scope="col">更新時間</th>
-                        </tr>
-                        @forelse ($list as $value)
+                        <thead>
                             <tr>
-                                <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
-                                <td><a href="{{ url('pages/users/' . $value->id) }}">{{ $value->email }}</a></td>
-                                <td>{{ $value->is_active ? '啟用' : '停用' }}</td>
-                                <td>{{ $value->created_at}}</td>
-                                <td>{{ $value->updated_at}}</td>
+                                <th scope="col" class="text-center">#</th>
+                                {{-- <th scope="col" class="text-center">{{ trans('user.id') }}</th> --}}
+                                <th scope="col">{{ trans('user.name') }}</th>
+                                <th scope="col">{{ trans('user.email') }}</th>
+                                <th scope="col">{{ trans('user.role') }}</th>
+                                <th scope="col">{{ trans('user.status') }}</th>
+                                <th scope="col">{{ trans('user.created_at') }}</th>
+                                <th scope="col">{{ trans('user.updated_at') }}</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td class="text-center" colspan="10">No Data</td>
-                            </tr>
-                        @endforelse
+                        </thead>
+                        <tbody>
+                            @forelse ($list as $key => $value)
+                                <tr>
+                                    <th scope="row" class="text-center">{{ $key + 1 }}</th>
+                                    {{-- <td class="text-center">{{ $value->id }}</td> --}}
+                                    <td>{{ $value->name }}</td>
+                                    <td><a href="{{ url('pages/users/' . $value->id) . '/edit' }}">{{ $value->email }}</a>
+                                    </td>
+                                    <td>{{ $value->role }}</td>
+                                    <td>{{ $value->is_active ? trans('user.is_active') : trans('user.is_disabled') }}</td>
+                                    <td>{{ $value->created_at->format('m-d-Y') }}</td>
+                                    <td>{{ $value->updated_at->diffForHumans() }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="10">No Data</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
                     </table>
-                    {{ $list->appends($filters)->links() }}
+                    {{-- {{ $list->appends($filters)->links() }} --}}
                 </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        {{ $list->appends($filters)->links() }}
+                    </ul>
+                </div>
             </div><!-- /.box -->
         </div>
     </div>

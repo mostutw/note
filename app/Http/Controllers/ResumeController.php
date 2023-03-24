@@ -216,7 +216,7 @@ class ResumeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:100',
-            'phone' => 'required|numeric|digits_between:9,15',
+            'phone' => 'nullable|numeric|digits_between:9,15',
         ]);
 
         Resume::create([

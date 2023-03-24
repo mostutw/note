@@ -1,6 +1,21 @@
 <?php
 
 return [
+    // 履歷表
+    'id' => '單號',
+    'name' => '姓名',
+    'phone' => '電話',
+    'status' => '狀態',
+    'link_button' => '連結開關',
+    'public_link' => '外部連結',
+    'copy' => '複製',
+    'on' => '開',
+    'off' => '關',
+    'created_at' => '建立日期',
+    'updated_at' => '修改日期',
+    'created_user' => '建立者',
+    'save' => '存檔',
+    'export' => '匯出',
     // 標題
     'title_company' => '整技科技股份有限公司',
     'title_subject' => '人事資料表',
