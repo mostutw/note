@@ -92,8 +92,8 @@
                                             type="button"
                                             class="btn btn-sm btn-primary">{{ trans('resume.copy') }}</button>
                                     </td>
-                                    <td>{{ $value->created_at->format('m-d-Y H:i') }}</td>
-                                    <td>{{ $value->updated_at->format('m-d-Y H:i') }}</td>
+                                    <td>{{ $value->created_at->format('m-d-Y') }}</td>
+                                    <td>{{ $value->updated_at->diffForHumans() }}</td>
                                     <td>{{ $value->user->name }}</td>
                                     <td class="text-center">
                                         @if ($value->other_promise)
