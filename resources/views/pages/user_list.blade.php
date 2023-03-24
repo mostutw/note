@@ -62,8 +62,8 @@
                                     </td>
                                     <td>{{ $value->role }}</td>
                                     <td>{{ $value->is_active ? trans('user.is_active') : trans('user.is_disabled') }}</td>
-                                    <td>{{ $value->created_at }}</td>
-                                    <td>{{ $value->updated_at }}</td>
+                                    <td>{{ $value->created_at->format('m-d-Y') }}</td>
+                                    <td>{{ $value->updated_at->diffForHumans() }}</td>
                                 </tr>
                             @empty
                                 <tr>

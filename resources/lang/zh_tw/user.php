@@ -12,7 +12,7 @@ return [
     'is_active' => '啟用',
     'is_disabled' => '停用',
     'permission' => '權限',
-    'created_at' => '建立時間',
+    'created_at' => '建立日期',
     'updated_at' => '更新時間',
     'na' => '無',
     'all' => '全部',
