@@ -29,7 +29,7 @@
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>&nbsp{{ trans('info.home') }}</a></li>
         {{-- <li><a href="#">Pages</a></li> --}}
         <li class="active">Maintain Show</li>
     </ol>

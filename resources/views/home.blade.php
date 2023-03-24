@@ -26,7 +26,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
-                <h4 class="box-title"><i class="fa fa-user">&nbsp{{ trans('user.user_profile') }}</i></h4>
+                <h4 class="box-title"><i class="fa fa-user"></i>&nbsp{{ trans('user.user_profile') }}</h4>
             </div><!-- /.box-header -->
             <div class="box-body">
                 <div class="col-md-12">

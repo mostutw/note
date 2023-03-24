@@ -28,7 +28,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-lock">&nbsp{{ trans('user.change_password') }}</i></h3>
+                    <h3 class="box-title"><i class="fa fa-lock"></i>&nbsp{{ trans('user.change_password') }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" action="{{ url('pages/change-password') }}" method="post">

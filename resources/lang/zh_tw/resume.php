@@ -2,6 +2,7 @@
 
 return [
     // 履歷表
+    'create_resume' => '新增履歷',
     'id' => '單號',
     'name' => '姓名',
     'phone' => '電話',

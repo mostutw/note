@@ -16,7 +16,7 @@
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>&nbsp{{ trans('info.home') }}</a></li>
         {{-- <li><a href="#">Pages</a></li> --}}
         <li class="active">Resume List</li>
     </ol>
@@ -63,9 +63,9 @@
                             @forelse ($list as $key => $value)
                                 <tr>
                                     <th scope="row" class="text-center">{{ $key + 1 }}</th>
-                                    <td class="text-center">{{ $value->id }}</th>
-                                    <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
-                                            target="_blank">{{ $value->name }}</a></td>
+                                    <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
+                                        target="_blank">{{ $value->id }}</a></th>
+                                    <td>{{ $value->name }}</td>
                                     {{-- <td>{{ $value->phoneFormat }}</td> --}}
                                     <td>{{ $select_list['resume_status'][$value->status] }}</td>
                                     <td>
@@ -97,7 +97,7 @@
                                     <td>{{ $value->user->name }}</td>
                                     <td class="text-center">
                                         @if ($value->other_promise)
-                                            <i class="fa fa-check"></i>
+                                            <i class="fa fa-save"></i>
                                         @endif
                                     </td>
                                     <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/export' }}" target="_blank"><i

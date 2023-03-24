@@ -1,5 +1,6 @@
 <?php
 return [
+    'create_user' => '新增使用者',
     'id' => '序號',
     'edit' => '修改',
     'name' => '使用者名稱',
