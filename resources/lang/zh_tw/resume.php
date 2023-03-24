@@ -14,6 +14,7 @@ return [
     'created_at' => '建立日期',
     'updated_at' => '修改日期',
     'created_user' => '建立者',
+    'save' => '存檔',
     'export' => '匯出',
     // 標題
     'title_company' => '整技科技股份有限公司',

@@ -55,7 +55,8 @@
                                 <th scope="col">{{ trans('resume.created_at') }}</th>
                                 <th scope="col">{{ trans('resume.updated_at') }}</th>
                                 <th scope="col">{{ trans('resume.created_user') }}</th>
-                                <th scope="col">{{ trans('resume.export') }}</th>
+                                <th scope="col" class="text-center">{{ trans('resume.save') }}</th>
+                                <th scope="col" class="text-center">{{ trans('resume.export') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +95,12 @@
                                     <td>{{ $value->created_at->format('m-d-Y H:i') }}</td>
                                     <td>{{ $value->updated_at->format('m-d-Y H:i') }}</td>
                                     <td>{{ $value->user->name }}</td>
-                                    <td><a href="{{ url('pages/resumes/' . $value->id) . '/export' }}" target="_blank"><i
+                                    <td class="text-center">
+                                        @if ($value->other_promise)
+                                            <i class="fa fa-check"></i>
+                                        @endif
+                                    </td>
+                                    <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/export' }}" target="_blank"><i
                                                 class="fa fa-file-word"></i></a></td>
                                 </tr>
                             @empty
