@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="col-md-2">
                                 <!-- textarea -->
                                 <div class="form-group">
@@ -54,7 +54,7 @@
                                         value="{{ old('phone') }}">
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-md-12">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
