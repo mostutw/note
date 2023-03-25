@@ -364,8 +364,8 @@ class ResumeController extends Controller
     {
         $request->validate([
             'id' => 'required|integer',
-            'name' => 'required|string',
-            'phone' => 'required|numeric',
+            'name' => 'required|string|max:100',
+            'phone' => 'nullable|numeric|digits_between:9,15',
         ]);
 
         $query = Resume::findOrFail($request->id);

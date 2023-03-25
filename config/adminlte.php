@@ -140,7 +140,7 @@ return [
         // ],
         [
             'text' => 'Maintain',
-            'icon' => 'fa fa-book',
+            'icon' => 'fa fa-tasks',
             'can'  => 'maintain.menu',
             'submenu' => [
                 [
@@ -155,7 +155,7 @@ return [
         ],
         [
             'text' => 'Resume',
-            'icon' => 'fa fa-users',
+            'icon' => 'fa fa-address-book',
             'can'  => 'resume.menu',
             'submenu' => [
                 [
@@ -179,15 +179,10 @@ return [
                 ],
             ]
         ],
-        ['header' => 'Account'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
+        ['header' => 'Settings'],
         [
-            'text' => 'User',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Users',
+            'icon' => 'fa fa-users',
             'can' => 'user.menu',
             'submenu' => [
                 [
@@ -200,62 +195,6 @@ return [
                 ],
             ]
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'pages/change-password',
-            'icon' => 'fas fa-fw fa-lock',
-        ],     
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'aqua',
-        // ],
     ],
 
     /*

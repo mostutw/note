@@ -16,7 +16,7 @@
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>&nbsp{{ trans('info.home') }}</a></li>
         {{-- <li><a href="#">Pages</a></li> --}}
         <li class="active">Resume List</li>
     </ol>
@@ -48,7 +48,7 @@
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col" class="text-center">{{ trans('resume.id') }}</th>
                                 <th scope="col">{{ trans('resume.name') }}</th>
-                                {{-- <th scope="col">{{ trans('resume.phone') }}</th> --}}
+                                <th scope="col">{{ trans('resume.phone') }}</th>
                                 <th scope="col">{{ trans('resume.status') }}</th>
                                 <th scope="col">{{ trans('resume.link_button') }}</th>
                                 <th scope="col">{{ trans('resume.public_link') }}</th>
@@ -63,10 +63,15 @@
                             @forelse ($list as $key => $value)
                                 <tr>
                                     <th scope="row" class="text-center">{{ $key + 1 }}</th>
-                                    <td class="text-center">{{ $value->id }}</th>
-                                    <td><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
-                                            target="_blank">{{ $value->name }}</a></td>
-                                    {{-- <td>{{ $value->phoneFormat }}</td> --}}
+                                    <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
+                                            target="_blank">{{ $value->id }}</a></th>
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#edit"
+                                            data-id="{{ $value->id }}" data-name="{{ $value->name }}"
+                                            data-phone="{{ $value->phone }}">{{ $value->name }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $value->phoneFormat }}</td>
                                     <td>{{ $select_list['resume_status'][$value->status] }}</td>
                                     <td>
                                         <div class="form-check form-check-inline">
@@ -97,11 +102,11 @@
                                     <td>{{ $value->user->name }}</td>
                                     <td class="text-center">
                                         @if ($value->other_promise)
-                                            <i class="fa fa-check"></i>
+                                            <i class="fa fa-save"></i>
                                         @endif
                                     </td>
-                                    <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/export' }}" target="_blank"><i
-                                                class="fa fa-file-word"></i></a></td>
+                                    <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/export' }}"
+                                            target="_blank"><i class="fa fa-file-word"></i></a></td>
                                 </tr>
                             @empty
                                 <tr>
@@ -120,6 +125,37 @@
             </div><!-- /.box -->
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="edit" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form role="form" action="{{ url('pages/resumes/' . $value->id . '/edit') }}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="changeId" value="">
+                        <label class="label-control">{{ trans('resume.name') }}</label>
+                        <input type="text" class="form-control" id="changeName" placeholder="" value="">
+                        <br />
+                        <label class="label-control">{{ trans('resume.phone') }}</label>
+                        <input type="number" class="form-control" id="changePhone" placeholder="" value="">
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" name="save_changes" id="save_changes">Save
+                            changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -129,18 +165,56 @@
             $(".lock-switch").on('click', function(e) {
                 save_lock_status($(this).attr('data-radioIndexId'), $(this).attr('data-radioValue'));
             });
-
+            $("#save_changes").on('click', function(e) {
+                let data = {
+                    "id": $('#changeId').val(),
+                    "name": $('#changeName').val(),
+                    "phone": $('#changePhone').val(),
+                };
+                save_profile(data);
+            });
+            $('#edit').on('show.bs.modal', function(e) {
+                //show.bs.modal = BS內建，觸發時執行
+                let btn = $(e.relatedTarget); //抓取觸發按鈕的資料
+                let data = {
+                    "id": btn.data('id'),
+                    "name": btn.data('name'),
+                    "phone": btn.data('phone'),
+                };
+                // console.log(data);
+                let modal = $(this); //要修改的modal就是現在開啟的這個modal
+                modal.find('#changeId').val(data.id); // 異動 modal
+                modal.find('#changeName').val(data.name);
+                modal.find('#changePhone').val(data.phone);
+            });
         });
+
         $(window).on("load", function() {
             // console.log("window loaded");
         });
+
+        function save_profile(data) {
+            // console.log(data);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "put",
+                url: './resumes/' + data.id + '/updateProfile',
+                data: data,
+                success: function(data) {
+                    console.log(data);
+                    location.reload();
+                }
+            })
+        }
 
         function save_lock_status(id, lock_status) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                type: "POST",
+                type: "put",
                 url: './resumes/' + id + '/updateLock',
                 data: {
                     id: id,

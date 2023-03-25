@@ -1,5 +1,6 @@
 <?php
 return [
+    'create_maintain' => '新增紀錄',
     'id' => '單號',
     'title' => '標題',
     'name' => '建立者',

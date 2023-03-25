@@ -1,6 +1,11 @@
 @extends('adminlte::page')
 
 @section('css')
+<style>
+    .box-title {
+        padding: 10px 30px;
+    }
+</style>
 @endsection
 
 @section('content_header')
@@ -10,7 +15,7 @@
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>&nbsp{{ trans('info.home') }}</a></li>
         {{-- <li><a href="#">Pages</a></li> --}}
         <li class="active">Resume Create</li>
     </ol>
@@ -24,7 +29,7 @@
 
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"></h3>
+                    <h3 class="box-title"><i class="fa fa-plus"></i>&nbsp{{ trans('resume.create_resume') }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" action="{{ url('pages/resumes') }}" method="post">
@@ -40,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="col-md-2">
                                 <!-- textarea -->
                                 <div class="form-group">
@@ -49,7 +54,7 @@
                                         value="{{ old('phone') }}">
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-md-12">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
