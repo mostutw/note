@@ -130,7 +130,7 @@
     <div class="modal fade" id="edit" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form role="form" action="{{ url('pages/resumes/' . $value->id . '/edit') }}">
+            <form role="form">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"></h5>
