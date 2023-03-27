@@ -5,6 +5,9 @@
         .list-box {
             padding: 0 20px 18px;
         }
+        thead tr th {
+            white-space: nowrap;
+        }
     </style>
 @endsection
 
@@ -67,7 +70,7 @@
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
                     <table class="table table-hover">
-                        <thead class="no-warp">
+                        <thead>
                             <tr>
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col" class="text-center">{{ trans('flow.id') }}</th>
@@ -85,7 +88,8 @@
                                 <tr>
                                     <th scope="row" class="text-center">{{ $key + 1 }}</th>
                                     <td class="text-center">
-                                        <a href="{{ url('pages/forms/' . $value['id'] ) }}" target="_blank">{{ $value['id'] }}</a>
+                                        <a href="{{ url('pages/forms/' . $value['id']) }}"
+                                            target="_blank">{{ $value['id'] }}</a>
                                     </td>
                                     <td>{{ $value['title_name'] }}</td>
                                     <td>{{ $value['name'] }}</td>

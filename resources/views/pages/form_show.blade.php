@@ -14,6 +14,12 @@
 
     <title>{{ $itecFormData->form_info->title_name }} | {{ trans('info.company') }}</title>
     <style>
+        .c-form-page {
+            padding-bottom: 100px;
+        }
+        thead tr th {
+            white-space: nowrap;
+        }
         @media (max-width: 767px) {
             .text-right { text-align:left }
         }
@@ -79,7 +85,7 @@
                             </div>
                         @endif
                     @endforeach
-                    <hr class="hr1">
+                    {{-- <hr class="hr1"> --}}
                     <!-- 表格 -->
                     @foreach ($a_form_table as $form_table)
                         <div class="table-responsive">
