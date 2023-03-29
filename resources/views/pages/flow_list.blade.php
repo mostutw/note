@@ -32,43 +32,60 @@
                 <div class="box-header">
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
-                        <form role="form">
-                            <div class="form-group">
-                                <div class="form-group col-xs-12 col-md-2 pull-left">
-                                    <input type="number" name="q_id" class="form-control input-sm pull-left"
-                                        value="{{ $filters['q_id'] }}" placeholder="{{ trans('flow.id') }}" />
-                                </div>
-                                <div class="form-group col-xs-12 col-md-2">
-                                    <input type="text" name="q_title" class="form-control input-sm pull-left"
-                                        value="{{ $filters['q_title'] }}" placeholder="{{ trans('flow.title_name') }}" />
-                                </div>
-                                <div class="form-group col-xs-12 col-md-2">
-                                    <input type="text" name="q_name" class="form-control input-sm pull-left"
-                                        value="{{ $filters['q_name'] }}" placeholder="{{ trans('flow.apply_name') }}" />
-                                </div>
-                                <div class="form-group col-xs-12 col-md-2">
-                                    <input type="text" name="q_stepuser" class="form-control input-sm pull-left"
-                                        value="{{ $filters['q_stepuser'] }}"
-                                        placeholder="{{ trans('flow.flow_sign_name') }}" />
-                                </div>
-                                <div class="form-group col-xs-12 col-md-2">
-                                    <select class="form-control input-sm pull-left" name="q_status" id="q_status"
-                                        value="{{ $filters['q_status'] }}">
-                                        @foreach ($menu as $key => $value)
-                                            <option value="{{ $key }}"
-                                                {{ $filters['q_status'] == $key ? 'selected' : '' }}>{{ $value }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-xs-12 col-md-2">
-                                    <button class="btn btn-sm btn-default pull-left"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
+                    <form role="form">
+                        <div class="row">
+                            <div class="form-group col-xs-6 col-md-1">
+                                <input type="text" name="q_id" class="form-control input-sm"
+                                    value="{{ isset($filters['q_id']) ? $filters['q_id'] : '' }}"
+                                    placeholder="{{ trans('flow.id') }}" />
+                            </div>
+                            <div class="form-group col-xs-6 col-md-2">
+                                <input type="text" name="q_title" class="form-control input-sm"
+                                    value="{{ isset($filters['q_title']) ? $filters['q_title'] : '' }}"
+                                    placeholder="{{ trans('flow.title_name') }}" />
+                            </div>
+                            <div class="form-group col-xs-6 col-md-2">
+                                <input type="text" name="q_name" class="form-control input-sm"
+                                    value="{{ isset($filters['q_name']) ? $filters['q_name'] : '' }}"
+                                    placeholder="{{ trans('flow.apply_name') }}" />
+                            </div>
+                            <div class="form-group col-xs-6 col-md-2">
+                                <input type="text" name="q_stepuser" class="form-control input-sm"
+                                    value="{{ isset($filters['q_stepuser']) ? $filters['q_stepuser'] : '' }}"
+                                    placeholder="{{ trans('flow.flow_sign_name') }}" />
+                            </div>
+                            <div class="form-group col-xs-3 col-md-1">
+                                <select class="form-control input-sm" name="q_status" id="q_status">
+                                    @foreach ($menu['status'] as $key => $value)
+                                        <option value="{{ $key }}"
+                                            {{ isset($filters['q_status']) && $filters['q_status'] == $key ? 'selected' : '' }}>
+                                            {{ $value }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-3 col-md-1">
+                                <div class="dataTables_length" id="row_per_page">
+                                    <label>
+                                        <select name="row_per_page" aria-controls="row_per_page"
+                                            class="form-control input-sm">
+                                            @foreach ($menu['row_per_page'] as $key => $value)
+                                                <option value="{{ $value }}"
+                                                    @if ($filters['row_per_page'] == $value) selected @endif>{{ $value }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-md-1">
+                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -107,7 +124,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="10">No Data</td>
+                                    <td class="text-center" colspan="10">{{ trans('info.nodata') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -118,7 +135,7 @@
                     <ul class="pagination pagination-sm no-margin pull-right">
                         {{ $list->appends($filters)->links() }}
                     </ul>
-                </div>
+                </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div>
     </div>
