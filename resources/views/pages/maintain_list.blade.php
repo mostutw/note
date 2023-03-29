@@ -5,6 +5,9 @@
         .list-box {
             padding: 0 20px 18px;
         }
+        thead tr th {
+            white-space: nowrap;
+        }
     </style>
 @endsection
 
