@@ -50,11 +50,9 @@ class FlowController extends Controller
      * Display a listing of the resource.
      * 
      * @param \Illuminate\Http\Request  $request
-     * @param \App\ItecUser $itecuser
-     * 
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ItecUser $itecuser)
+    public function index(Request $request)
     {
         $request->validate([
             'q_id' => 'nullable|integer',
@@ -94,7 +92,7 @@ class FlowController extends Controller
 
         if ($request->filled('q_stepuser')) {
             $filters['q_stepuser'] = $request->input('q_stepuser');
-            $stepusers = $itecuser->where('name', 'like', '%' . $filters['q_stepuser'] . '%')->get();
+            $stepusers = ItecUser::where('name', 'like', '%' . $filters['q_stepuser'] . '%')->get();
             $stepusersWhereIn = collect($stepusers)->map(function ($item) {
                 return $item->id . ',';
             });
@@ -104,8 +102,8 @@ class FlowController extends Controller
         $filters['row_per_page'] = $request->input('row_per_page', 50);
         $flows = $tasks->where($where)->orderBy('itec_task.id', 'desc')->simplePaginate($filters['row_per_page']);
 
-        $users = $itecuser->all()->keyBy('id');
-        $employees = $itecuser->whereNull('leave_office_date')->orderBy('name', 'asc')->get()->keyBy('id');
+        $users = ItecUser::all()->keyBy('id');
+        $employees = ItecUser::whereNull('leave_office_date')->orderBy('name', 'asc')->get()->keyBy('id');
 
         foreach ($flows as $flow) {
             $a_sign_list = explode(',', substr($flow['flow_UnSignForView'], 0, -1));

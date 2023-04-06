@@ -94,9 +94,9 @@ class AddUuidToResumes extends Migration
             $table->dropColumn('other_workOvertime');
             $table->dropColumn('other_infoSourceMemo');
             $table->dropColumn('other_infoSource');
-            $table->dropColumn('other_lawReson');
+            $table->dropColumn('other_lawReason');
             $table->dropColumn('other_law');
-            $table->dropColumn('other_hospitalizedReson');
+            $table->dropColumn('other_hospitalizedReason');
             $table->dropColumn('other_hospitalized');
             $table->dropColumn('other_pregnancy');
             $table->dropColumn('recommend_relation_2');
