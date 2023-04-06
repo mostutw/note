@@ -70,12 +70,12 @@
                             <div class="col-md-2">
                                 <label for="start_date">{{ trans('maintain.start_date') }}</label>
                                 <input type="date" class="form-control" name="start_date" placeholder=""
-                                    value="@if (!is_null($edit->start_date)) {{ $edit->start_date->format('Y-m-d') }} @endif">
+                                    value="{{ !is_null($edit->start_date) ? $edit->start_date->format('Y-m-d') : '' }}">
                             </div>
                             <div class="col-md-2">
                                 <label for="end_date">{{ trans('maintain.end_date') }}</label>
                                 <input type="date" class="form-control" name="end_date" placeholder=""
-                                    value="@if (!is_null($edit->end_date)) {{ $edit->end_date->format('Y-m-d') }} @endif">
+                                    value="{{ !is_null($edit->end_date) ? $edit->end_date->format('Y-m-d') : '' }}">
                             </div>
                         </div>
                         <div class="col-md-12">
