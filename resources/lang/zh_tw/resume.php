@@ -86,11 +86,11 @@ return [
     // 其他
     'other_pregnancy' => '目前有無懷孕', // 1,2
     'other_hospitalized' => '曾有住院/開刀記錄', // 1,2
-    'other_hospitalizedReson' => '原因',
+    'other_hospitalizedReason' => '原因',
     'other_law' => '刑事/民事記錄', // 1,2
-    'other_lawReson' => '原因',
+    'other_lawReason' => '原因',
     'other_bank' => '曾有不良債信記錄', // 1,2
-    'other_bankReson' => '原因',
+    'other_bankReason' => '原因',
     'other_infoSource' => '求職資訊來源',
     'other_infoSourceMemo' => '說明',
     'other_workOvertime' => '平日加班', // 1,2
@@ -125,7 +125,7 @@ return [
     'exp_jobTitle' => '職稱',
     'exp_workPlace' => '地點',
     'exp_startDate' => '任職期間',
-    'exp_leaveReson' => '離職原因',
+    'exp_leaveReason' => '離職原因',
     'exp_salary' => '薪資(月薪)',
     'exp_content' => '工作描述',
     // 按鈕

@@ -53,8 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::get('resumes/create', 'ResumeController@create');
         Route::post('resumes', 'ResumeController@store');
         Route::get('resumes/{id}', 'ResumeController@show');
-        Route::get('resumes/{id}/edit', 'ResumeController@edit');
-        Route::put('resumes/{id}', 'ResumeController@update');
+        Route::get('resumes/{resume}/edit', 'ResumeController@edit');
+        Route::put('resumes/{resume}', 'ResumeController@update');
         Route::get('resumes/{id}/export', 'ResumeController@export');
         Route::put('resumes/{id}/updateLock', 'ResumeController@updateLock');
         Route::put('resumes/{id}/updateProfile', 'ResumeController@updateProfile');
