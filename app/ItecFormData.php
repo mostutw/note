@@ -45,4 +45,22 @@ class ItecFormData extends Model
         // Model, foreign key, local key
         return $this->hasOne('App\ItecFormInfo', 'id', 'form_id');
     }
+
+    /**
+     * 取得該表單對應的使用者
+     * ex: class, 
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\ItecUser', 'user_id', 'id');
+    }
+
+     /**
+     * 設定日期格式
+     */
+    protected $casts = [
+        'create_date'  => 'date:Y-m-d H:i:s',
+        'event_date'  => 'date:Y-m-d H:i:s',
+    ];
+
 }
