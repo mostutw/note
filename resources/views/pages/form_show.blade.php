@@ -17,11 +17,15 @@
         .c-form-page {
             padding-bottom: 100px;
         }
+
         thead tr th {
             white-space: nowrap;
         }
+
         @media (max-width: 767px) {
-            .text-right { text-align:left }
+            .text-right {
+                text-align: left
+            }
         }
     </style>
 </head>
@@ -111,7 +115,33 @@
                             </table>
                         </div>
                     @endforeach
-
+                    {{-- 簽核歷程 --}}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col">關卡</th>
+                                    <th scope="col">簽核人</th>
+                                    <th scope="col">簽核時間</th>
+                                    <th scope="col">簽核結果</th>
+                                    <th scope="col">簽核意見</th>
+                                </tr>
+                            </thead>
+                            @foreach ($a_formSignHistory as $item)
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="text-center">{{ $item->version }}</th>
+                                        <td>{{ $item->flow_stepname }}</td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>{{ $item->event_date }}</td>
+                                        <td>{{ $menu['sResult'][$item->sResult] }}</td>
+                                        <td>{{ $item->sComment }}</td>
+                                    </tr>
+                                <tbody>
+                            @endforeach
+                        </table>
+                    </div>
                 </div>
                 <div class="col-sm-12 c-form-footer">
                     {{-- 底部 --}}
