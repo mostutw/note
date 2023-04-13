@@ -65,14 +65,24 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ItecFormData  $itecFormData
+     * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ItecFormData $itecFormData, $a_template_view = [], $a_data_view = [], $a_table_view = [])
+    public function show($id, $a_template_view = [], $a_data_view = [], $a_table_view = [])
     {
-        $a_formSignHistory = ItecFormData::with('user')->where('task_id', $itecFormData->task_id)->orderBy('version', 'asc')->get();
+        // 取得最新版本的 ItecFormData
+        $itecFormData = ItecFormData::with('user')->where('task_id', $id)->latest('version')->firstOrFail();
+        
+        // 取得所有版本的 ItecFormData，按照版本號排序
+        $a_formSignHistory = ItecFormData::with('user')->where('task_id', $id)->orderBy('version', 'asc')->get();
+
+        // 將 form_xml 轉換為陣列
         $a_form_xml = $this->xmlToArray($itecFormData->form_info->form_xml);
+        
+        // 將 form_content 轉換為陣列
         $a_form_content = $this->xmlToArray($itecFormData->form_content);
+        
+        // 以 ID 當做索引鍵
         $o_table_view = collect($a_form_xml['FormStructure']['item'])->keyBy('ID');
 
         foreach ($a_form_content['FormTemplate'] as $key => $value) {
