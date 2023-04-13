@@ -5,8 +5,15 @@
         .list-box {
             padding: 0 20px 18px;
         }
+
         thead tr th {
             white-space: nowrap;
+        }
+
+        .hyper-link a:visited {
+            color: Purple;
+            background-color: transparent;
+            text-decoration: none;
         }
     </style>
 @endsection
@@ -104,7 +111,7 @@
                             @forelse ($list as $key => $value)
                                 <tr>
                                     <th scope="row" class="text-center">{{ $key + 1 }}</th>
-                                    <td class="text-center">
+                                    <td class="text-center hyper-link">
                                         <a href="{{ url('pages/forms/' . $value['id']) }}"
                                             target="_blank">{{ $value['id'] }}</a>
                                     </td>

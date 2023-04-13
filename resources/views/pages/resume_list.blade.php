@@ -8,6 +8,11 @@
         thead tr th {
             white-space: nowrap;
         }
+        .hyper-link a:visited {
+            color: Purple;
+            background-color: transparent;
+            text-decoration: none;
+        }
     </style>
 @endsection
 
@@ -66,7 +71,7 @@
                             @forelse ($list as $key => $value)
                                 <tr>
                                     <th scope="row" class="text-center">{{ $key + 1 }}</th>
-                                    <td class="text-center"><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
+                                    <td class="text-center hyper-link"><a href="{{ url('pages/resumes/' . $value->id) . '/edit' }}"
                                             target="_blank">{{ $value->id }}</a></th>
                                     <td>
                                         <a href="#" data-toggle="modal" data-target="#edit"
