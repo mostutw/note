@@ -908,12 +908,12 @@ class ResumeController extends Controller
             $row->addCell($cm[3], $cellStyle['title'])->addText(trans('resume.family_relation'), $textStyle['title_zh_tw'], 'pStyle');
             $row->addCell($cm[4], $cellStyle['title'])->addText(trans('resume.family_name'), $textStyle['title_zh_tw'], 'pStyle');
             $row->addCell($cm[3], $cellStyle['title'])->addText(trans('resume.family_age'), $textStyle['title_zh_tw'], 'pStyle');
-            $row->addCell($cm[4], $cellStyle['title'])->addText(trans('resume.family_age'), $textStyle['title_zh_tw'], 'pStyle');
+            $row->addCell($cm[4], $cellStyle['title'])->addText(trans('resume.family_job'), $textStyle['title_zh_tw'], 'pStyle');
             $row->addCell($cm[1], $cellStyle['title'])->addText("", $textStyle['title_zh_tw'], 'pStyle');
             $row->addCell($cm[3], $cellStyle['title'])->addText(trans('resume.family_relation'), $textStyle['title_zh_tw'], 'pStyle');
             $row->addCell($cm[4], $cellStyle['title'])->addText(trans('resume.family_name'), $textStyle['title_zh_tw'], 'pStyle');
             $row->addCell($cm[3], $cellStyle['title'])->addText(trans('resume.family_age'), $textStyle['title_zh_tw'], 'pStyle');
-            $row->addCell($cm[4], $cellStyle['title'])->addText(trans('resume.family_age'), $textStyle['title_zh_tw'], 'pStyle');
+            $row->addCell($cm[4], $cellStyle['title'])->addText(trans('resume.family_job'), $textStyle['title_zh_tw'], 'pStyle');
 
 
             foreach ($o_resume->resume_family as $i => $family) {
