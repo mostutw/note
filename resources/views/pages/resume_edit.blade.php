@@ -517,14 +517,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-1 {{ $errors->first('feature_license') ? "has-error" : '' }}0">
+                        <div class="form-group col-md-10 {{ $errors->first('feature_license') ? "has-error" : '' }}">
                             <label for="feature_license">{{ trans('resume.feature_license') }}</label>
                             <textarea class="form-control" name="feature_license" id="feature_license" rows="3"
                                 placeholder="AWS 架構師-助理認證">{{ old('feature_license',$query['feature_license']) }}</textarea>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-1 {{ $errors->first('feature_skill') ? "has-error" : '' }}0">
+                        <div class="form-group col-md-10 {{ $errors->first('feature_skill') ? "has-error" : '' }}">
                             <label for="feature_skill">{{ trans('resume.feature_skill') }}</label>
                             <textarea class="form-control" name="feature_skill" id="feature_skill" rows="3" placeholder="C#, MSSQL, Git">{{ old('feature_skill',$query['feature_skill']) }}</textarea>
                         </div>
