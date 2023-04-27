@@ -12,7 +12,7 @@
     <!-- custom -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/resume.css') }}">
 
-    <title>{{ $itecFormData->form_info->title_name }} | {{ trans('info.company') }}</title>
+    <title>{{ $itecFormData->form_info->title_name }} - {{ $itecFormData->task_id }}</title>
     <style>
         .c-form-page {
             padding-bottom: 100px;
