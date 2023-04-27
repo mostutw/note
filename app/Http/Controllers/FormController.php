@@ -68,76 +68,71 @@ class FormController extends Controller
      * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $a_template_view = [], $a_data_view = [], $a_table_view = [])
+    public function show($id, $masterForm = [], $slaveForm = [])
     {
         // 取得最新版本的 ItecFormData
         $itecFormData = ItecFormData::with('user')->where('task_id', $id)->latest('version')->firstOrFail();
-        
+
         // 取得所有版本的 ItecFormData，按照版本號排序
-        $a_formSignHistory = ItecFormData::with('user')->where('task_id', $id)->orderBy('version', 'asc')->get();
+        $formSignHistory = ItecFormData::with('user')->where('task_id', $id)->orderBy('version', 'asc')->get();
 
         // 將 form_xml 轉換為陣列
-        $a_form_xml = $this->xmlToArray($itecFormData->form_info->form_xml);
-        
+        $form_xml = $this->xmlToArray($itecFormData->form_info->form_xml);
+
         // 將 form_content 轉換為陣列
-        $a_form_content = $this->xmlToArray($itecFormData->form_content);
-        
-        // 以 ID 當做索引鍵
-        $o_table_view = collect($a_form_xml['FormStructure']['item'])->keyBy('ID');
+        $form_content = $this->xmlToArray($itecFormData->form_content);
 
-        foreach ($a_form_content['FormTemplate'] as $key => $value) {
-            $new_key = str_replace($itecFormData->form_info->simple_code . '_', '', $key);
-            $a_template_view[$new_key] = [
-                'field_id' => $key,
-                'value' => $value,
-            ];
-            // 比對template與items的key值, 符合的合併在一起
-            if (array_key_exists($new_key, $o_table_view->all())) {
-                foreach ($o_table_view[$new_key] as $key => $value) {
-                    $a_template_view[$new_key][$key] = $value;
-                }
+        // formTemplate with items
+        $items = collect($form_xml['FormStructure']['item'])->keyBy('ID')->toArray();
+        $formTemplate = $form_content['FormTemplate'];
+
+        // 主表
+        foreach ($formTemplate as $key => $value) {
+            $newKey = str_replace($itecFormData->form_info->simple_code . '_', '', $key);
+            if (array_key_exists($newKey, $items)) {
+                $items[$newKey]['value'] = !empty($value) ? (string) $value : '';
+                $items[$newKey]['value'] = in_array($items[$newKey]['Type'], $this->field_type) ? $this->field_process($items[$newKey]['value'], $items[$newKey]['Type']) : $items[$newKey]['value'];
+                $items[$newKey]['view'] = !isset($items[$newKey]['Sum']) ? true : false;
+                $items[$newKey]['redtext'] = isset($items[$newKey]['Redtext']) && $items[$newKey]['Redtext'] == 'true' ? true : false;
+                $masterForm[] = $items[$newKey];
             }
         }
-        // 主表內容
-        foreach ($a_template_view as $key => $value) {
-            // 檢查 key 是否 Field 開頭 , 檢查是否有 Label 及 Value
-            if ((str_contains($key, 'DynamicFields_Field') === false) and (str_contains($key, 'grid') === false) and (str_contains($key, 'DynamicFields') === false)) {
-                if (isset($value['Label']) && isset($value['value'])) {
-                    // exit;
-                    $value['value'] = empty($value['value']) ? '' : (string) $value['value'];
-                    if (in_array($value['Type'], $this->field_type)) {
-                        $value['value'] = $this->field_process($value);
-                    }
-                    $a_data_view[$key] = $value;
+        // dd($masterForm);
+        // 子表
+        if (isset($formTemplate[$itecFormData->form_info->simple_code . '_' . 'DynamicFields'])) {
+            $formTableDynamicFields = json_decode($formTemplate[$itecFormData->form_info->simple_code . '_' . 'DynamicFields'], true);
+            // 處理子表欄位資料
+            foreach ($formTableDynamicFields as $value) {
+                if (array_key_exists($value['Code'], $items)) {
+                    $slaveForm[$value['Code']]['data'][] = $value['Data'];
                 }
             }
-        }
-        // 子表內容
-        if (isset($a_template_view['DynamicFields'])) {
-            $form_talbe = json_decode($a_template_view['DynamicFields']['value'], true);
-            foreach ($form_talbe as $key => $value) {
-                foreach ($value['Data'] as $data_key => $data_value) {
-                    $a_form_table[$key][$data_key] = $o_table_view[$data_key];
-                    $a_form_table[$key][$data_key]['value'] = $data_value;
-                }
-                // 儲存子表格欄位的數值
-                $a_table_view[$value['Code']]['data'][] = $a_form_table[$key];
-                // 儲存子表格欄位的標題
-                if (!isset($a_table_view[$value['Code']]['title'])) {
-                    foreach ($a_table_view[$value['Code']]['data'] as $k => $v) {
-                        foreach ($v as $val) {
-                            $a_table_view[$value['Code']]['title'][] =  $val['Label'];
+            foreach ($items as $key => $value) {
+                if (array_key_exists($key, $slaveForm)) {
+                    // 處理子表欄位標題
+                    $slaveForm[$key]['title'] = json_decode($value['Options'], true);
+                    $sumColumn = json_decode($value['SumColumn'], true);
+                    // 處理加總
+                    foreach($sumColumn as $keySumColumn => $valueSumColumn)
+                        foreach($items as $keyItems => $valueItems) {
+                            if ($valueSumColumn === $keyItems)
+                            {
+                                $sumColumn[$keySumColumn] = $valueItems['value'];
+                            }
                         }
-                    }
+                    $slaveForm[$key]['data'][] = $sumColumn;
                 }
             }
         }
-
+        // dd($slaveForm);
         $binding = [
             'itecFormData' => $itecFormData,
-            'a_form_data' => $a_data_view,
-            'a_form_table' => $a_table_view,
-            'a_formSignHistory' => $a_formSignHistory,
+            'masterForm' => $masterForm,
+            'slaveForm' => $slaveForm,
+            'formSignHistory' => $formSignHistory,
+            'formTemplate' => $formTemplate,
+            'items' => $items,
+            'formTableDynamicFields' => $formTableDynamicFields,
             'menu' => $this->menu,
         ];
         // dd($binding);
@@ -192,16 +187,19 @@ class FormController extends Controller
     /**
      * 處理欄位型態轉換
      */
-    public function field_process($value)
+    public function field_process($value, $type)
     {
-        switch ($value['Type']) {
+        switch ($type) {
             case 'upload':
-                $value['value'] = explode(",", $value['value']);
+                $value = explode(",", $value);
                 break;
             case 'editor':
-                $value['value'] = htmlspecialchars_decode($value['value']);
+                $value = htmlspecialchars_decode($value);
+                break;
+            default:
+                $value = $value;
                 break;
         }
-        return $value['value'];
+        return $value;
     }
 }

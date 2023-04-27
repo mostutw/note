@@ -46,126 +46,140 @@
                                 <label class="form-label">{{ trans('form.id') }}</label>
                             </div>
                             <div class="col-sm-10 form-group">
-                                <span>{{ $itecFormData->task_id }}</span>
+                                <p class="text-primary">{{ $itecFormData->task_id }}</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 內容 -->
-                    @foreach ($a_form_data as $form_data)
-                        <!-- Grid && Sum 不列印 -->
-                        @if (!isset($form_data['Grid']) || !isset($form_data['Sum']))
+                    <!-- 主表 -->
+                        @forelse ($masterForm as $item)
+                            @if ($item['view'])
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="col-sm-2 form-group text-right">
-                                        <label class="form-label">{{ $form_data['Label'] }}</label>
+                                        <label
+                                            class="form-label @if ($item['Required'] == 'true') required @endif">{{ $item['Label'] }}</label>
                                     </div>
                                     <div class="col-sm-10 form-group">
-                                        @switch($form_data['Type'])
+                                        @switch($item['Type'])
+                                            // systeminfo text select getvalue department
                                             @case('text')
-                                                @if (!$form_data['Grid'])
-                                                    <span>{{ $form_data['value'] }}</span>
-                                                @endif
+                                                <p class=" @if ($item['redtext'] == true) text-danger @endif ">
+                                                    {{ $item['value'] }}
+                                                </p>
                                             @break
 
                                             @case('upload')
-                                                @foreach ($form_data['value'] as $val)
-                                                    <span>
-                                                        <a href="{{ env('IOA_URL') . $val }}"
-                                                            target="_blank">{{ str_replace(env('IOA_UPLOAD_FILE_PATH'), '', $val) }}</a>
-                                                    </span>
+                                                @foreach ($item['value'] as $filePath)
+                                                    <p>
+                                                        <a href="{{ env('IOA_URL') . $filePath }}"
+                                                            target="_blank">{{ str_replace(env('IOA_UPLOAD_FILE_PATH'), '', $filePath) }}</a>
+                                                    </p>
                                                 @endforeach
                                             @break
 
                                             @case('editor')
-                                                <span>{!! $form_data['value'] !!}</span>
+                                                <p>{!! $item['value'] !!}</p>
                                             @break
 
                                             @default
-                                                <span>{{ $form_data['value'] }}</span>
+                                                <p class=" @if ($item['redtext'] == true) text-danger @endif ">
+                                                    {{ $item['value'] }}
+                                                </p>
                                         @endswitch
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                        @empty
+                        @endforelse
+                        <!-- 子表 -->
+                        @if (!empty($slaveForm))
+                            <hr>
+                            @forelse ($slaveForm as $item)
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                @foreach ($item['title'] as $title)
+                                                    <th scope="col" class="text-nowrap">{{ $title }}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($item['data'] as $key => $data)
+                                                <tr>
+                                                    <th scope="row" class="text-nowrap">
+                                                        @if (count($item['data']) > $key + 1)
+                                                            {{ $key + 1 }}
+                                                        @else
+                                                            {{ trans('form.total')}}
+                                                        @endif
+                                                    </th>
+                                                    @foreach ($data as $field)
+                                                        <td>{{ $field }}</td>
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
+                                        <tbody>
+                                    </table>
+                                </div>
+                            @empty
+                            @endforelse
                         @endif
-                    @endforeach
-                    {{-- <hr class="hr1"> --}}
-                    <!-- 表格 -->
-                    @foreach ($a_form_table as $form_table)
+                        {{-- 簽核歷程 --}}
+                        <hr>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        @foreach ($form_table['title'] as $title)
-                                            <th scope="col" class="text-nowrap">{{ $title }}</th>
-                                        @endforeach
+                                        <th scope="col" class="text-center">#</th>
+                                        <th scope="col">關卡</th>
+                                        <th scope="col">簽核人</th>
+                                        <th scope="col">簽核時間</th>
+                                        <th scope="col">簽核結果</th>
+                                        <th scope="col">簽核意見</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($form_table['data'] as $key => $data)
+                                @forelse ($formSignHistory as $item)
+                                    <tbody>
                                         <tr>
-                                            <th>{{ $key + 1 }}</th>
-                                            @foreach ($data as $value)
-                                                <td>{{ $value['value'] }}</td>
-                                            @endforeach
+                                            <th scope="row" class="text-center">{{ $item->version }}</th>
+                                            <td>{{ $item->flow_stepname }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->event_date }}</td>
+                                            <td>{{ $menu['sResult'][$item->sResult] }}</td>
+                                            <td>{{ $item->sComment }}</td>
                                         </tr>
-                                    @endforeach
-                                <tbody>
+                                    <tbody>
+                                    @empty
+                                @endforelse
                             </table>
                         </div>
-                    @endforeach
-                    {{-- 簽核歷程 --}}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="text-center">#</th>
-                                    <th scope="col">關卡</th>
-                                    <th scope="col">簽核人</th>
-                                    <th scope="col">簽核時間</th>
-                                    <th scope="col">簽核結果</th>
-                                    <th scope="col">簽核意見</th>
-                                </tr>
-                            </thead>
-                            @foreach ($a_formSignHistory as $item)
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="text-center">{{ $item->version }}</th>
-                                        <td>{{ $item->flow_stepname }}</td>
-                                        <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->event_date }}</td>
-                                        <td>{{ $menu['sResult'][$item->sResult] }}</td>
-                                        <td>{{ $item->sComment }}</td>
-                                    </tr>
-                                <tbody>
-                            @endforeach
-                        </table>
                     </div>
-                </div>
-                <div class="col-sm-12 c-form-footer">
-                    {{-- 底部 --}}
-                </div>
-            </form>
+                    <div class="col-sm-12 c-form-footer">
+                        {{-- 底部 --}}
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-    <!-- script -->
-    <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <!-- bootstrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- custom -->
-    <script>
-        // document loaded / window loaded
-        $(document).ready(function() {
+        <!-- script -->
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <!-- bootstrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- custom -->
+        <script>
+            // document loaded / window loaded
+            $(document).ready(function() {
 
-        });
-        $(window).on("load", function() {
-            // console.log("window loaded");
-        });
-    </script>
+            });
+            $(window).on("load", function() {
+                // console.log("window loaded");
+            });
+        </script>
 
-</body>
+    </body>
 
-</html>
+    </html>
