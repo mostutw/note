@@ -12,7 +12,7 @@
     <!-- custom -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/resume.css') }}">
 
-    <title>{{ $itecFormData->form_info->title_name }} - {{ $itecFormData->task_id }}</title>
+    <title>{{ $itecFormDataLast->form_info->title_name }} - {{ $itecFormDataLast->task_id }}</title>
     <style>
         .c-form-page {
             padding-bottom: 100px;
@@ -35,7 +35,7 @@
         <div class="row c-form-page">
             <form role="form">
                 <div class="col-sm-12 c-form-legend">
-                    <p class="h2 text-center">{{ $itecFormData->form_info->title_name }}</p>
+                    <p class="h2 text-center">{{ $itecFormDataLast->form_info->title_name }}</p>
                 </div>
 
                 <div class="col-sm-12 form-column">
@@ -46,7 +46,7 @@
                                 <label class="form-label">{{ trans('form.id') }}</label>
                             </div>
                             <div class="col-sm-10 form-group">
-                                <p class="text-primary">{{ $itecFormData->task_id }}</p>
+                                <p class="text-primary">{{ $itecFormDataLast->task_id }}</p>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                         <th scope="col">簽核意見</th>
                                     </tr>
                                 </thead>
-                                @forelse ($formSignHistory as $item)
+                                @forelse ($itecFormData as $item)
                                     <tbody>
                                         <tr>
                                             <th scope="row" class="text-center">{{ $item->version }}</th>

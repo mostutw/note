@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\ItecFormData;
-use App\ItecUser;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -66,29 +65,26 @@ class FormController extends Controller
      * Display the specified resource.
      *
      * @param  integer $id
+     * @param  array $masterForm
+     * @param  array $slaveForm
      * @return \Illuminate\Http\Response
      */
     public function show($id, $masterForm = [], $slaveForm = [])
     {
-        // 取得最新版本的 ItecFormData
-        $itecFormData = ItecFormData::with('user')->where('task_id', $id)->latest('version')->firstOrFail();
-
-        // 取得所有版本的 ItecFormData，按照版本號排序
-        $formSignHistory = ItecFormData::with('user')->where('task_id', $id)->orderBy('version', 'asc')->get();
-
+        // 取得 form data
+        $itecFormData = ItecFormData::with('user')->where('task_id', $id)->orderBy('version')->get();
+        // 取得 form data 最後一版
+        $itecFormDataLast = $itecFormData->last();
         // 將 form_xml 轉換為陣列
-        $form_xml = $this->xmlToArray($itecFormData->form_info->form_xml);
-
+        $form_xml = $this->xmlToArray($itecFormDataLast->form_info->form_xml);
         // 將 form_content 轉換為陣列
-        $form_content = $this->xmlToArray($itecFormData->form_content);
-
+        $form_content = $this->xmlToArray($itecFormDataLast->form_content);
         // formTemplate with items
         $items = collect($form_xml['FormStructure']['item'])->keyBy('ID')->toArray();
         $formTemplate = $form_content['FormTemplate'];
-
         // 主表
         foreach ($formTemplate as $key => $value) {
-            $newKey = str_replace($itecFormData->form_info->simple_code . '_', '', $key);
+            $newKey = str_replace($itecFormDataLast->form_info->simple_code . '_', '', $key);
             if (array_key_exists($newKey, $items)) {
                 $items[$newKey]['value'] = !empty($value) ? (string) $value : '';
                 $items[$newKey]['value'] = in_array($items[$newKey]['Type'], $this->field_type) ? $this->field_process($items[$newKey]['value'], $items[$newKey]['Type']) : $items[$newKey]['value'];
@@ -97,11 +93,10 @@ class FormController extends Controller
                 $masterForm[] = $items[$newKey];
             }
         }
-        // dd($masterForm);
         // 子表
-        if (isset($formTemplate[$itecFormData->form_info->simple_code . '_' . 'DynamicFields'])) {
-            $formTableDynamicFields = json_decode($formTemplate[$itecFormData->form_info->simple_code . '_' . 'DynamicFields'], true);
-            // 處理子表欄位資料
+        if (isset($formTemplate[$itecFormDataLast->form_info->simple_code . '_' . 'DynamicFields'])) {
+            $formTableDynamicFields = json_decode($formTemplate[$itecFormDataLast->form_info->simple_code . '_' . 'DynamicFields'], true);
+            // 子表的資料
             foreach ($formTableDynamicFields as $value) {
                 if (array_key_exists($value['Code'], $items)) {
                     $slaveForm[$value['Code']]['data'][] = $value['Data'];
@@ -109,14 +104,13 @@ class FormController extends Controller
             }
             foreach ($items as $key => $value) {
                 if (array_key_exists($key, $slaveForm)) {
-                    // 處理子表欄位標題
+                    // 子表的標題
                     $slaveForm[$key]['title'] = json_decode($value['Options'], true);
                     $sumColumn = json_decode($value['SumColumn'], true);
-                    // 處理加總
-                    foreach($sumColumn as $keySumColumn => $valueSumColumn)
-                        foreach($items as $keyItems => $valueItems) {
-                            if ($valueSumColumn === $keyItems)
-                            {
+                    // 子表的加總
+                    foreach ($sumColumn as $keySumColumn => $valueSumColumn)
+                        foreach ($items as $keyItems => $valueItems) {
+                            if ($valueSumColumn === $keyItems) {
                                 $sumColumn[$keySumColumn] = $valueItems['value'];
                             }
                         }
@@ -127,13 +121,13 @@ class FormController extends Controller
         // dd($slaveForm);
         $binding = [
             'itecFormData' => $itecFormData,
+            'itecFormDataLast' => $itecFormDataLast,
             'masterForm' => $masterForm,
             'slaveForm' => $slaveForm,
-            'formSignHistory' => $formSignHistory,
-            'formTemplate' => $formTemplate,
-            'items' => $items,
-            'formTableDynamicFields' => $formTableDynamicFields,
             'menu' => $this->menu,
+            // 'items' => $items,
+            // 'formTemplate' => $formTemplate,
+            // 'formTableDynamicFields' => $formTableDynamicFields,
         ];
         // dd($binding);
         return view('pages.form_show', $binding);
