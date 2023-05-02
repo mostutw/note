@@ -157,6 +157,74 @@ class ResumeController extends Controller
     ];
 
     /**
+     * 驗證規則
+     */
+
+    public $rule = [
+        'interview_department' => 'nullable|alpha|max:100',
+        'interview_jobTitle' => 'nullable|alpha|max:100',
+        'interview_workDate' => 'nullable|date',
+        'interview_salary' => 'nullable|integer|between:1,10000000',
+        'interview_lowSalary' => 'nullable|integer|between:1,10000000',
+        'interview_applyDate' => 'nullable|date',
+        'info_chineseName' => 'required|alpha|max:100',
+        'info_englishName' => 'nullable|alpha|max:100',
+        'info_sex' => 'nullable|integer',
+        'info_marry' => 'nullable|integer',
+        'info_id' => ['nullable', 'regex:/^[A-Z]\d{9}$/'],
+        'info_birthday' => 'nullable|before:today',
+        'info_birthplace' => 'nullable|alpha|max:100',
+        'info_height' => 'nullable|numeric|between:1,300',
+        'info_weight' => 'nullable|numeric|between:1,200',
+        'info_blood' => 'nullable|in:A,B,AB,O|max:2',
+        'info_colorPerception' => 'nullable|integer',
+        'info_visionLeft' => 'nullable|numeric|between:1,3',
+        'info_visionRight' => 'nullable|numeric|between:1,3',
+        'info_disability' => 'nullable|integer',
+        'info_disabilityType' => 'nullable|alpha|max:100',
+        'info_disabilityLevel' => 'nullable|alpha|max:100',
+        'info_military' => 'nullable|integer',
+        'info_militaryDate' => 'nullable|date',
+        'info_militaryReason' => 'nullable|alpha|max:255',
+        'info_email' => 'nullable|email|max:100',
+        'info_phone' => 'nullable|digits_between:9,10',
+        'info_address' => 'nullable|string|max:255',
+        'info_telephone' => 'nullable|digits_between:9,10',
+        'info_address_2' => 'nullable|string|max:255',
+        'info_telephone_2' => 'nullable|digits_between:9,10',
+        'feature_strength' => 'nullable|string|max:255',
+        'feature_weakness' => 'nullable|string|max:255',
+        'feature_englishLevel' => 'nullable|integer',
+        'feature_taiwaneseHokkienLevel' => 'nullable|integer',
+        'feature_license' => 'nullable|string|max:255',
+        'feature_skill' => 'nullable|string|max:255',
+        'family_emergencyContactName' => 'nullable|alpha|max:100',
+        'family_emergencyContactPhone' => 'nullable|digits_between:9,10',
+        'family_emergencyContactRelation' => 'nullable|alpha|max:100',
+        'recommend_name' => 'nullable|alpha|max:100',
+        'recommend_phone' => 'nullable|digits_between:9,10',
+        'recommend_relation' => 'nullable|alpha|max:100',
+        'recommend_name_2' => 'nullable|alpha|max:100',
+        'recommend_phone_2' => 'nullable|digits_between:9,10',
+        'recommend_relation_2' => 'nullable|alpha|max:100',
+        'other_pregnancy' => 'nullable|integer',
+        'other_hospitalized' => 'nullable|integer',
+        'other_hospitalizedReason' => 'nullable|string|max:255',
+        'other_law' => 'nullable|integer',
+        'other_lawReason' => 'nullable|string|max:255',
+        'other_infoSource' => 'nullable|integer',
+        'other_infoSourceMemo' => 'nullable|string|max:255',
+        'other_bank' => 'nullable|integer',
+        'other_bankReason' => 'nullable|string|max:255',
+        'other_workOvertime' => 'nullable|integer',
+        'other_workOvertimeMemo' => 'nullable|string|max:255',
+        'other_workOvertimeHoliday' => 'nullable|integer',
+        'other_workOvertimeHolidayMemo' => 'nullable|string|max:255',
+        'other_future' => 'nullable|string|max:500',
+        'other_promise' => 'required|accepted',
+    ];
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -265,79 +333,14 @@ class ResumeController extends Controller
      */
     public function update(Request $request, Resume $resume)
     {
-        $input = $request->all();
-        /**
-         * 驗證規則
-         */
-        $validator = Validator::make($input,[
-            'interview_department' => 'nullable|alpha|max:100',
-            'interview_jobTitle' => 'nullable|alpha|max:100',
-            'interview_workDate' => 'nullable|date',
-            'interview_salary' => 'nullable|integer|between:1,10000000',
-            'interview_lowSalary' => 'nullable|integer|between:1,10000000',
-            'interview_applyDate' => 'nullable|date',
-            'info_chineseName' => 'required|alpha|max:100',
-            'info_englishName' => 'nullable|alpha|max:100',
-            'info_sex' => 'nullable|integer',
-            'info_marry' => 'nullable|integer',
-            'info_id' => ['nullable','regex:/^[A-Z]\d{9}$/'],
-            'info_birthday' => 'nullable|before:today',
-            'info_birthplace' => 'nullable|alpha|max:100',
-            'info_height' => 'nullable|numeric|between:1,300',
-            'info_weight' => 'nullable|numeric|between:1,200',
-            'info_blood' => 'nullable|in:A,B,AB,O|max:2',
-            'info_colorPerception' => 'nullable|integer',
-            'info_visionLeft' => 'nullable|numeric|between:1,3',
-            'info_visionRight' => 'nullable|numeric|between:1,3',
-            'info_disability' => 'nullable|integer',
-            'info_disabilityType' => 'nullable|alpha|max:100',
-            'info_disabilityLevel' => 'nullable|alpha|max:100',
-            'info_military' => 'nullable|integer',
-            'info_militaryDate' => 'nullable|date',
-            'info_militaryReason' => 'nullable|alpha|max:255',
-            'info_email' => 'nullable|email|max:100',
-            'info_phone' => 'nullable|digits_between:9,10',
-            'info_address' => 'nullable|string|max:255',
-            'info_telephone' => 'nullable|digits_between:9,10',
-            'info_address_2' => 'nullable|string|max:255',
-            'info_telephone_2' => 'nullable|digits_between:9,10',
-            'feature_strength' => 'nullable|string|max:255',
-            'feature_weakness' => 'nullable|string|max:255',
-            'feature_englishLevel' => 'nullable|integer',
-            'feature_taiwaneseHokkienLevel' => 'nullable|integer',
-            'feature_license' => 'nullable|string|max:255',
-            'feature_skill' => 'nullable|string|max:255',
-            'family_emergencyContactName' => 'nullable|alpha|max:100',
-            'family_emergencyContactPhone' => 'nullable|digits_between:9,10',
-            'family_emergencyContactRelation' => 'nullable|alpha|max:100',
-            'recommend_name' => 'nullable|alpha|max:100',
-            'recommend_phone' => 'nullable|digits_between:9,10',
-            'recommend_relation' => 'nullable|alpha|max:100',
-            'recommend_name_2' => 'nullable|alpha|max:100',
-            'recommend_phone_2' => 'nullable|digits_between:9,10',
-            'recommend_relation_2' => 'nullable|alpha|max:100',
-            'other_pregnancy' => 'nullable|integer',
-            'other_hospitalized' => 'nullable|integer',
-            'other_hospitalizedReason' => 'nullable|string|max:255',
-            'other_law' => 'nullable|integer',
-            'other_lawReason' => 'nullable|string|max:255',
-            'other_infoSource' => 'nullable|integer',
-            'other_infoSourceMemo' => 'nullable|string|max:255',
-            'other_bank' => 'nullable|integer',
-            'other_bankReason' => 'nullable|string|max:255',
-            'other_workOvertime' => 'nullable|integer',
-            'other_workOvertimeMemo' => 'nullable|string|max:255',
-            'other_workOvertimeHoliday' => 'nullable|integer',
-            'other_workOvertimeHolidayMemo' => 'nullable|string|max:255',
-            'other_future' => 'nullable|string|max:500',
-            'other_promise' => 'required|accepted',
-        ]);
-
+        // 驗證
+        $validator = Validator::make($request->all(), $this->rule);
+        // 錯誤
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
         // dd($validator);
-        $return = $this->saveData($resume);
+        $return = $this->saveData($resume, $request);
 
         return $return == true ? redirect()->back()->with('success', 'Profile updated!') : redirect()->back()->with('fail', 'Error!');    // return redirect()->back()->withInput();
     }
@@ -391,8 +394,16 @@ class ResumeController extends Controller
      */
     public function updateForPublic($uuid, Request $request, Resume $resume)
     {
-        $query = $resume->where(['uuid' => $uuid, 'lock' => 0])->firstOrFail();
-        $return = $this->saveData($query);
+        $resume = $resume->where(['uuid' => $uuid, 'lock' => 0])->firstOrFail();
+        // 驗證規則
+        $validator = Validator::make($request->all(), $this->rule);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $return = $this->saveData($resume, $request);
+
         return $return == true ? redirect('public/resumes/' . $uuid . '/edit')->with('success', 'Profile updated!') : redirect('public/resumes/' . $uuid . '/edit')->with('fail', 'Error!');
     }
 
