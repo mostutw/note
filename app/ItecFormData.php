@@ -22,6 +22,11 @@ class ItecFormData extends Model
 
     protected $table = 'itec_formdata';
 
+    /**
+     * 禁用預設的 updated_at 欄位
+     */
+    public $timestamps = false;
+
     public function itec_form_info()
     {
         return $this->belongsTo('App\ItecFormInfo');

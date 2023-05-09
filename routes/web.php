@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
         Route::put('flows/{id}/updateStep', 'FlowController@flowUpdate');
 
         Route::get('forms/{id}', 'FormController@show');
+        Route::get('forms/{itecformdata}/edit', 'FormController@edit');
+        Route::put('forms/{id}', 'FormController@update');     
     });
 
 });

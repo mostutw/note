@@ -9,6 +9,8 @@
     <!-- jquery -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/all.min.css') }}">
     <!-- custom -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/resume.css') }}">
 
@@ -32,27 +34,32 @@
 
 <body>
     <div class="container full">
-        <div class="row c-form-page">
-            <form role="form">
-                <div class="col-sm-12 c-form-legend">
-                    <p class="h2 text-center">{{ $itecFormDataLast->form_info->title_name }}</p>
-                </div>
 
-                <div class="col-sm-12 form-column">
-                    <!-- 單號 -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-2 form-group text-right">
-                                <label class="form-label">{{ trans('form.id') }}</label>
-                            </div>
-                            <div class="col-sm-10 form-group">
-                                <p class="text-primary">{{ $itecFormDataLast->task_id }}</p>
-                            </div>
+        <div class="row c-form-page">
+            <div class="col-sm-12 c-form-legend">
+                <p class="h2 text-center">
+                    {{ $itecFormDataLast->form_info->title_name }}&ensp;
+                    <i class="fa fa-pen">&ensp;<a href="{{ url('pages/forms/' . $itecFormDataLast->id) . '/edit' }}">Edit</a></i>
+                </p>
+                
+            </div>
+
+            <div class="col-sm-12 form-column">
+                <!-- 單號 -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-2 form-group text-right">
+                            <label class="form-label">{{ trans('form.id') }}</label>
+                        </div>
+                        <div class="col-sm-10 form-group">
+                            <p class="text-primary">{{ $itecFormDataLast->task_id }}</p>
                         </div>
                     </div>
-                    <!-- 主表 -->
-                        @forelse ($masterForm as $item)
-                            @if ($item['view'])
+                </div>
+                <!-- 主表 -->
+                @if (!empty($masterForm))
+                    @foreach ($masterForm as $item)
+                        @if ($item['view'])
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="col-sm-2 form-group text-right">
@@ -61,7 +68,6 @@
                                     </div>
                                     <div class="col-sm-10 form-group">
                                         @switch($item['Type'])
-                                            // systeminfo text select getvalue department
                                             @case('text')
                                                 <p class=" @if ($item['redtext'] == true) text-danger @endif ">
                                                     {{ $item['value'] }}
@@ -89,46 +95,49 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
-                        @empty
-                        @endforelse
-                        <!-- 子表 -->
-                        @if (!empty($slaveForm))
-                            <hr>
-                            @forelse ($slaveForm as $item)
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
+                        @endif
+                    @endforeach
+                @endif
+                <!-- 子表 -->
+                @if (!empty($slaveForm))
+                    @foreach ($slaveForm as $item)
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            @foreach ($item['title'] as $title)
+                                                <th scope="col" class="text-nowrap">{{ $title }}</th>
+                                            @endforeach
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($item['data'] as $key => $data)
                                             <tr>
-                                                <th scope="col">#</th>
-                                                @foreach ($item['title'] as $title)
-                                                    <th scope="col" class="text-nowrap">{{ $title }}</th>
+                                                <th scope="row" class="text-nowrap">
+                                                    @if (count($item['data']) > $key + 1)
+                                                        {{ $key + 1 }}
+                                                    @else
+                                                        {{ trans('form.total') }}
+                                                    @endif
+                                                </th>
+                                                @foreach ($data as $field)
+                                                    <td>
+                                                        {{ $field }}
+                                                    </td>
                                                 @endforeach
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($item['data'] as $key => $data)
-                                                <tr>
-                                                    <th scope="row" class="text-nowrap">
-                                                        @if (count($item['data']) > $key + 1)
-                                                            {{ $key + 1 }}
-                                                        @else
-                                                            {{ trans('form.total')}}
-                                                        @endif
-                                                    </th>
-                                                    @foreach ($data as $field)
-                                                        <td>{{ $field }}</td>
-                                                    @endforeach
-                                                </tr>
-                                            @endforeach
-                                        <tbody>
-                                    </table>
-                                </div>
-                            @empty
-                            @endforelse
-                        @endif
-                        {{-- 簽核歷程 --}}
-                        <hr>
+                                        @endforeach
+                                    <tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+                {{-- 簽核歷程 --}}
+                @if (!empty($itecFormData))
+                    <div class="row">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -141,7 +150,7 @@
                                         <th scope="col">簽核意見</th>
                                     </tr>
                                 </thead>
-                                @forelse ($itecFormData as $item)
+                                @foreach ($itecFormData as $item)
                                     <tbody>
                                         <tr>
                                             <th scope="row" class="text-center">{{ $item->version }}</th>
@@ -152,34 +161,36 @@
                                             <td>{{ $item->sComment }}</td>
                                         </tr>
                                     <tbody>
-                                    @empty
-                                @endforelse
+                                @endforeach
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-12 c-form-footer">
-                        {{-- 底部 --}}
-                    </div>
-                </form>
+                @endif
             </div>
         </div>
-        <!-- script -->
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <!-- bootstrap -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!-- custom -->
-        <script>
-            // document loaded / window loaded
-            $(document).ready(function() {
 
-            });
-            $(window).on("load", function() {
-                // console.log("window loaded");
-            });
-        </script>
+        <div class="col-sm-12 c-form-footer">
+        </div>
 
-    </body>
+    </div>
+    <!-- script -->
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- bootstrap -->
+    <script src='https://cdn.tiny.cloud/1/hn3o0tmszhnrb0adtmub1316kgfdva1wwx1dcwivusv5n56a/tinymce/4/tinymce.min.js'>
+    </script>
+    <!-- custom -->
+    <script>
+        // document loaded / window loaded
+        $(document).ready(function() {
+            // console.log("window ready");
+        });
+        $(window).on("load", function() {
+            // console.log("window loaded");
+        });
+    </script>
 
-    </html>
+</body>
+
+</html>

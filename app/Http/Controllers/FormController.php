@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ItecFormData;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -136,24 +137,47 @@ class FormController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ItecFormData  $itecFormData
+     * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ItecFormData $itecFormData)
+    public function edit($id)
     {
-        //
+        $itecFormData = ItecFormData::findOrFail($id);
+        $binding = [
+            'itecFormData' => $itecFormData,
+        ];
+        return view('pages.form_edit', $binding);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ItecFormData  $itecFormData
+     * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ItecFormData $itecFormData)
+    public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'form_content' => function($attribute, $value, $fail) {
+                libxml_use_internal_errors(true);
+                $xml = simplexml_load_string($value);
+                if (!$xml) {
+                    $fail('The '.$attribute.' is invalid XML format.');
+                }
+            },
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $itecFormData = ItecFormData::findOrFail($id);
+        $itecFormData->form_content = $request->form_content;
+        $itecFormData->save();
+        // dd($itecFormData);
+        return redirect('pages/forms/' . $itecFormData->task_id);
     }
 
     /**
