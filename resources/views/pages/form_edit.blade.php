@@ -59,24 +59,36 @@
                     </div>
                 @endif
                 <div class="col-sm-12 c-form-legend">
-                    <p class="h2 text-center">{{ $itecFormData->form_info->title_name }} - {{ trans('form.id') }} : <a href="{{ url('pages/forms/' . $itecFormData->task_id) }}">{{ $itecFormData->task_id }}</a></p>
+                    <p class="h2 text-center">{{ $itecFormData->form_info->title_name }} - {{ trans('form.id') }} : <a
+                            href="{{ url('pages/forms/' . $itecFormData->task_id) }}">{{ $itecFormData->task_id }}</a>
+                    </p>
                 </div>
-                
+
+                <div class="col-md-12">
+                    <button type="button" onclick="test()">Format XML</button>
+                </div>
+
                 <div class="col-md-12">
                     <!-- textarea -->
                     <div class="form-group text-center">
-                        <label class="form-label">內容異動</label>
-                        <textarea class="form-control" name="form_content" rows="20" placeholder="">{{ $itecFormData->form_content }}</textarea>
+                        <label class="form-label"></label>
+
+                        <textarea class="form-control" name="form_content" id="result" rows="20" placeholder="">{{ $itecFormData->form_content }}</textarea>
                     </div>
                 </div>
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
+
         </div>
 
         <div class="col-sm-12 c-form-footer">
+
         </div>
+
+        {{-- <textarea id="result" rows="8" cols="32"></textarea> --}}
+
 
     </div>
     <!-- script -->
@@ -95,6 +107,36 @@
         $(window).on("load", function() {
             // console.log("window loaded");
         });
+    </script>
+    <script>
+        function test() {
+            let res = document.getElementById('result');
+            res.value = formatXml(res.value);
+        }
+        // 
+        function formatXml(xml) {
+            xml = new XMLSerializer().serializeToString(
+                    new DOMParser().parseFromString(xml, 'text/xml'))
+                .replace(/>\s{0,}</g, '><');
+            const PADDING = ' '.repeat(2); // set desired indent size here
+            const reg = /(>)(<)(\/*)/g;
+            let pad = 0;
+            xml = xml.replace(reg, '$1\r\n$2$3');
+            return xml.split('\r\n').map((node, index) => {
+                let indent = 0;
+                if (node.match(/.+<\/\w[^>]*>$/)) {
+                    indent = 0;
+                } else if (node.match(/^<\/\w/) && pad > 0) {
+                    pad -= 1;
+                } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+                    indent = 1;
+                } else {
+                    indent = 0;
+                }
+                pad += indent;
+                return PADDING.repeat(pad - indent) + node;
+            }).join('\r\n');
+        }
     </script>
 
 </body>
