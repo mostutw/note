@@ -68,7 +68,6 @@ Route::middleware('auth')->group(function () {
     });
 
 });
-// 公開履歷表 ,唯一URL, 未上鎖時可編輯
 
 Route::group(['prefix' => 'public'], function () {
     Route::get('resumes/{uuid}/edit', 'ResumeController@editForPublic');
